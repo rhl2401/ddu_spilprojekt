@@ -3,7 +3,7 @@ class Box {
   String tag;
   float x, y, w, h; 
   
-  Box(String tag_in, float x_in, float y_in, float w_in, float h_in) {
+  Box (String tag_in, float x_in, float y_in, float w_in, float h_in) {
     tag = tag_in;
     x = x_in;
     y = y_in;
