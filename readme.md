@@ -18,6 +18,9 @@ GitHub er blevet brugt undervejs til at holde styr på projektet. Der laves issu
 > **"Wa-hoo"**
 
 
+## Formattering
+**Variabler**: Underscore
+**Class names**: Med stort forbogstav og underscore
 
 ### Notes
 [Soundboard](https://www.101soundboards.com/boards/28072-mario-sounds-new-super-mario-bros-wii) 
