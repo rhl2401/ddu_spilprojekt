@@ -19,7 +19,7 @@ GitHub er blevet brugt undervejs til at holde styr på projektet. Der laves issu
 
 
 ## Formattering
-**Variabler**: Underscore
+**Variabler**: Underscore  
 **Class names**: Med stort forbogstav og underscore
 
 ### Notes
