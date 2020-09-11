@@ -24,7 +24,7 @@ void draw() {
   
    // Display background and for it to move slowly, only move 1/3 of the other elements
   image(background, -world_x/5, 0, 2500, 1000);
-  
+
   // Detect any keypress
   if (keyPressed) {
     if (key == 'A' || key == 'a') {
@@ -33,6 +33,7 @@ void draw() {
       if (world_x < world_max) world_x += player_move_speed;
     }
   }
+  
   
   for (int i=0; i<stage_objs.size(); i++) {
     Stage obj = stage_objs.get(i);
