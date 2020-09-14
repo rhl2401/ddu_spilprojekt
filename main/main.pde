@@ -35,7 +35,8 @@ void draw() {
   clear();   
   
   // Display background and for it to move slowly, only move 1/3 of the other elements
-  image(background, -world_x/5, 0, 2500, 1000);
+  background(48, 220, 255);
+  //image(background, -world_x/5, 0, 2500, 1000);
   
   // Display scoreboard 
   score.display();
