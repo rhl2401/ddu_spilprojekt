@@ -33,11 +33,18 @@ class Cube {
   }
   
   void display() {
-    image(img, x, y, standard_size, standard_size); 
+    image(img, x-world_x, y, unit, unit); 
   }
   
   Box getBox() {
-    return new Box("cube", x, y, standard_size, standard_size);
+    return new Box("cube", x, y, unit, unit);
+  }
+}
+
+
+void generateCubes(float x, float y, int count) {
+  for (int i=0; i<count; i++) {
+    cubes.add(new Cube(x+unit*i, y));
   }
 }
 
@@ -46,11 +53,8 @@ class Cube {
 
 
 void generateStage() {
-  stage_objs.add(new Stage(0, 940, 2000, 100));
-  stage_objs.add(new Stage(2000, 940, 2000, 100));
-  stage_objs.add(new Stage(1400, 800, 50, 50));
+  stage_objs.add(new Stage(0, unit*18, 2000, 100));
+  stage_objs.add(new Stage(2000, unit*18, 2000, 100));
   
-  cubes.add(new Cube(900, 800));
-  cubes.add(new Cube(900+standard_size, 800));
-  cubes.add(new Cube(900+standard_size*2, 800));
+  generateCubes(900, unit*15, 4);
 }

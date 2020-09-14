@@ -2,7 +2,8 @@
 float world_x = 0;
 float world_max = 9000;
 float player_move_speed = 8;
-float standard_size = 50;
+float unit = 50;
+
 
 // Bagground image
 PImage background;
