@@ -14,6 +14,7 @@ class Box {
 
 
 static String[] BoxCollider(Box b1, Box b2) {
+  // String[3] will return "box 1 is on top/left/right/bottom of box 2"
   String[] arr = new String[4];
   if ((b1.x + b1.w > b2.x && 
        b1.x + b1.w < b2.x + b2.w && 
