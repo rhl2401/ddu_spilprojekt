@@ -1,9 +1,13 @@
+//Import sound library
+import processing.sound.*;
+ArrayList<SoundFile> soundFiles = new ArrayList<SoundFile>();
+ArrayList<String> soundNames = new ArrayList<String>();
+
 // X-value to shift all objects along x-axis
 float world_x = 0;
 float world_max = 9000;
 float player_move_speed = 8;
 float unit = 50;
-
 
 // Bagground image
 PImage background;
@@ -16,6 +20,9 @@ ArrayList<Cube> cubes = new ArrayList<Cube>();
 void setup() {
   size(1900, 1000);
   background = loadImage("background.png");
+  
+  initSound();
+  playSound("overworld", 0.5);
   
   generateStage();
 }
@@ -33,7 +40,7 @@ void draw() {
       if (world_x > 0) world_x -= player_move_speed;
     } else if (key == 'D' || key == 'd') {
       if (world_x < world_max) world_x += player_move_speed;
-    }
+    } 
   }
   
   
