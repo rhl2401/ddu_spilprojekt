@@ -54,7 +54,10 @@ void generateCubes(float x, float y, int count) {
 
 void generateStage() {
   stage_objs.add(new Stage(0, unit*18, 2000, 100));
-  stage_objs.add(new Stage(2000, unit*18, 2000, 100));
+  stage_objs.add(new Stage(1900, unit*18, 2000, 100));
   
-  generateCubes(900, unit*15, 4);
+  generateCubes(unit*18, unit*15, 4);
+  generateCubes(unit*24, unit*13, 3);
+  generateCubes(unit*29, unit*11, 2);
+  generateCubes(unit*35, unit*10, 3);
 }
