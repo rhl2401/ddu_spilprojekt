@@ -22,6 +22,7 @@ ArrayList<Cube> cubes = new ArrayList<Cube>();
 
 void setup() {
   size(1900, 1000);
+  frameRate(60);
   background = loadImage("background.png");
   
   initSound();
