@@ -21,6 +21,7 @@ class Stage {
 }
 
 
+
 class Cube {
   float x, y;
   PImage img;
@@ -28,9 +29,28 @@ class Cube {
   Cube (float x_in, float y_in) {
     x = x_in;
     y = y_in;
+    img = loadImage("block.png");
+  }
+  
+  void display() {
+    image(img, x, y, standard_size, standard_size); 
   }
   
   Box getBox() {
     return new Box("cube", x, y, standard_size, standard_size);
   }
+}
+
+
+
+
+
+void generateStage() {
+  stage_objs.add(new Stage(0, 940, 2000, 100));
+  stage_objs.add(new Stage(2000, 940, 2000, 100));
+  stage_objs.add(new Stage(1400, 800, 50, 50));
+  
+  cubes.add(new Cube(900, 800));
+  cubes.add(new Cube(900+standard_size, 800));
+  cubes.add(new Cube(900+standard_size*2, 800));
 }

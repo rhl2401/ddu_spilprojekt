@@ -9,14 +9,14 @@ PImage background;
 
 // Stage objects 
 ArrayList<Stage> stage_objs = new ArrayList<Stage>();
+ArrayList<Cube> cubes = new ArrayList<Cube>();
 
 
 void setup() {
   size(1900, 1000);
   background = loadImage("background.png");
   
-  stage_objs.add(new Stage(0, 940, 1880, 100));
-  stage_objs.add(new Stage(1400, 800, 50, 50));
+  generateStage();
 }
 
 
@@ -38,6 +38,11 @@ void draw() {
   
   for (int i=0; i<stage_objs.size(); i++) {
     Stage obj = stage_objs.get(i);
+    obj.display();
+  }
+  
+  for (int i=0; i<cubes.size(); i++) {
+    Cube obj = cubes.get(i);
     obj.display();
   }
 }
