@@ -31,6 +31,7 @@ void initSound() {
   soundFiles.add(new SoundFile(this, "nsmb_pipe.wav"));
   soundFiles.add(new SoundFile(this, "nsmb_power-up.wav"));
   soundFiles.add(new SoundFile(this, "nsmb_jump.wav"));
+  soundFiles.add(new SoundFile(this, "nsmb_death.wav"));
   
   soundNames.add("overworld");
   soundNames.add("stage_complete");
@@ -40,4 +41,5 @@ void initSound() {
   soundNames.add("pipe");
   soundNames.add("power_up");
   soundNames.add("jump");
+  soundNames.add("death");
 }
