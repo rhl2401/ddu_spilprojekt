@@ -14,4 +14,23 @@ class Stage {
   void display() {
     image(img, x-world_x, y, w, h); 
   }
+  
+  Box getBox() {
+    return new Box("stage", x, y, w, h);
+  }
+}
+
+
+class Cube {
+  float x, y;
+  PImage img;
+  
+  Cube (float x_in, float y_in) {
+    x = x_in;
+    y = y_in;
+  }
+  
+  Box getBox() {
+    return new Box("cube", x, y, standard_size, standard_size);
+  }
 }
