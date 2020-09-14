@@ -18,6 +18,7 @@ PImage background;
 // Stage objects 
 ArrayList<Stage> stage_objs = new ArrayList<Stage>();
 ArrayList<Cube> cubes = new ArrayList<Cube>();
+ArrayList<Pipe> pipes = new ArrayList<Pipe>();
 
 
 void setup() {
@@ -59,6 +60,11 @@ void draw() {
   
   for (int i=0; i<cubes.size(); i++) {
     Cube obj = cubes.get(i);
+    obj.display();
+  }
+  
+  for (int i=0; i<pipes.size(); i++) {
+    Pipe obj = pipes.get(i);
     obj.display();
   }
 }

@@ -50,6 +50,25 @@ void generateCubes(float x, float y, int count) {
 
 
 
+class Pipe {
+  float x, y;
+  PImage img; 
+  
+  Pipe (float x_in, float y_in) {
+    x = x_in; 
+    y = y_in; 
+    img = loadImage("warp_pipe.png");
+  }
+  
+  void display() {
+    image(img, x-world_x, y, unit*2, unit*3); 
+  }
+  
+  Box getBox() {
+    return new Box("pipe", x, y, unit*2, unit*3);
+  }
+}
+
 
 
 void generateStage() {
@@ -60,4 +79,6 @@ void generateStage() {
   generateCubes(unit*24, unit*13, 3);
   generateCubes(unit*29, unit*11, 2);
   generateCubes(unit*35, unit*10, 3);
+  
+  pipes.add(new Pipe(unit*23, unit*17));
 }
