@@ -9,6 +9,9 @@ float world_max = 9000;
 float player_move_speed = 8;
 float unit = 50;
 
+// Score
+ScoreBoard score = new ScoreBoard();
+
 // Bagground image
 PImage background;
 
@@ -29,10 +32,13 @@ void setup() {
 
 
 void draw() {
-  clear(); 
+  clear();   
   
-   // Display background and for it to move slowly, only move 1/3 of the other elements
+  // Display background and for it to move slowly, only move 1/3 of the other elements
   image(background, -world_x/5, 0, 2500, 1000);
+  
+  // Display scoreboard 
+  score.display();
 
   // Detect any keypress
   if (keyPressed) {
