@@ -25,6 +25,7 @@ PImage mario_sprite;
 // Stage objects 
 ArrayList<Stage> stage_objs = new ArrayList<Stage>();
 ArrayList<Cube> cubes = new ArrayList<Cube>();
+ArrayList<Pipe> pipes = new ArrayList<Pipe>();
 
 Mario player;
 
@@ -83,6 +84,12 @@ void draw() {
     Cube obj = cubes.get(i);
     obj.display();
   }
+  
+  for (int i=0; i<pipes.size(); i++) {
+    Pipe obj = pipes.get(i);
+    obj.display();
+  }
+  
   
   
   player.display();
