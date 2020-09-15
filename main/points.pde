@@ -3,7 +3,7 @@ class ScoreBoard {
   int points = 0;
   
   ScoreBoard() {
-    points = 100;
+    
   }
   
   void display() {

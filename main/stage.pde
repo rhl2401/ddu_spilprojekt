@@ -52,7 +52,9 @@ void generateCubes(float x, float y, int count) {
 
 class Pipe {
   float x, y;
-  PImage img; 
+  PImage img;
+  boolean hasFlower = false;
+  float flowerTimer;
   
   Pipe (float x_in, float y_in) {
     x = x_in; 
@@ -60,8 +62,20 @@ class Pipe {
     img = loadImage("warp_pipe.png");
   }
   
+  Pipe (float x_in, float y_in, boolean pipeHasFlower) {
+    x = x_in; 
+    y = y_in; 
+    img = loadImage("warp_pipe.png");
+    hasFlower = pipeHasFlower;
+    
+    if (hasFlower) {
+      flowerTimer = random(3, 12);
+    }
+  }
+  
   void display() {
     image(img, x-world_x, y, unit*2, unit*3); 
+    // Do something absout the flower popping up
   }
   
   Box getBox() {
