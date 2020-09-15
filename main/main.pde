@@ -42,13 +42,6 @@ void setup() {
   size(1900, 1000);
   frameRate(60);
   
-  keys = new boolean[3];
-  keys[0] = false;
-  keys[1] = false;
-  keys[2] = false; 
-  mario_sprite = loadImage("mario.png");
-  player = new Mario(900, 800);
-  
   stage_objs.add(new Stage(0, 940, 1880, 100));
   stage_objs.add(new Stage(1400, 800, 50, 50));
   
@@ -65,7 +58,6 @@ void setup() {
   
   goombas.add(new Goomba(900, 800));
   goombas.add(new Goomba(1000, 800));
-  
   
   generateStage();
 }
