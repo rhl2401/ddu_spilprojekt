@@ -52,8 +52,9 @@ void generateCubes(float x, float y, int count) {
 
 class Pipe {
   float x, y;
-  PImage img;
+  PImage img, flower_img;
   boolean hasFlower = false;
+  float flowerShowTime = 2;
   float flowerTimer;
 
   Pipe (float x_in, float y_in) {
@@ -69,13 +70,18 @@ class Pipe {
     hasFlower = pipeHasFlower;
 
     if (hasFlower) {
-      flowerTimer = random(3, 12);
+      flower_img = loadImage("evil_flower.png");
+      flowerTimer = random(3, 9);
     }
   }
 
   void display() {
+    flowerScript();
     image(img, x-world_x, y, unit*2, unit*3); 
-    // Do something absout the flower popping up
+  }
+  
+  void flowerScript() {
+    
   }
 
   Box getBox() {
