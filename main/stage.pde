@@ -54,12 +54,14 @@ class Pipe {
   float x, y;
   PImage img, flower_img;
   boolean hasFlower = false;
-  float flowerShowTime = 2;
+  float flowerShowTime = 3;
   float flowerTimer;
+  float y_coord = y;  // Used for flower
 
   Pipe (float x_in, float y_in) {
     x = x_in; 
     y = y_in; 
+    y_coord = y;
     img = loadImage("warp_pipe.png");
   }
 
@@ -76,16 +78,22 @@ class Pipe {
   }
 
   void display() {
-    flowerScript();
+    if (hasFlower) flowerScript();
     image(img, x-world_x, y, unit*2, unit*3); 
   }
   
   void flowerScript() {
-    
+    float time = millis() % ((flowerShowTime + flowerTimer) * 1000);
+    if (time < 500) {
+      y_coord = y - time/20;
+    } else if (time > 2500 && time < 3000) {
+      y_coord = y + (time-2000)/20;
+    }
+    image(flower_img, x-world_x+unit/2, y_coord-unit, unit, unit*1.5);
   }
 
   Box getBox() {
-    return new Box("pipe", x, y, unit*2, unit*3);
+    return new Box("pipe", x, y_coord, unit*2, unit*3);
   }
 }
 
@@ -100,5 +108,5 @@ void generateStage() {
   generateCubes(unit*29, unit*11, 2);
   generateCubes(unit*35, unit*10, 3);
 
-  pipes.add(new Pipe(unit*23, unit*17));
+  pipes.add(new Pipe(unit*23, unit*17, true));
 }
