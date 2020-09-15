@@ -31,11 +31,12 @@ ArrayList<Stage> stage_objs = new ArrayList<Stage>();
 ArrayList<Cube> cubes = new ArrayList<Cube>();
 ArrayList<Pipe> pipes = new ArrayList<Pipe>();
 
+// NPCs
+ArrayList<Goomba> goombas = new ArrayList<Goomba>();
+
 Mario player;
-Goomba enemy1;
-Goomba enemy2;
-  
-  
+
+
 
 void setup() {
   size(1900, 1000);
@@ -48,9 +49,9 @@ void setup() {
   mario_sprite = loadImage("mario.png");
   player = new Mario(900, 800);
   
-  
   stage_objs.add(new Stage(0, 940, 1880, 100));
   stage_objs.add(new Stage(1400, 800, 50, 50));
+  
   initSound();
   playSound("overworld", 0.5);
   
@@ -61,8 +62,10 @@ void setup() {
   mario_sprite = loadImage("mario.png");
   goomba_sprite = loadImage("goomba.png");
   player = new Mario(900, 800);
-  enemy1 = new Goomba(900,800);
-  enemy2 = new Goomba(1000,800);
+  
+  goombas.add(new Goomba(900, 800));
+  goombas.add(new Goomba(1000, 800));
+  
   
   generateStage();
 }
@@ -92,31 +95,19 @@ void draw() {
 
 
 
-
-  for (int i=0; i<stage_objs.size(); i++) {
-    Stage obj = stage_objs.get(i);
-    obj.display();
-  }
-
-  for (int i=0; i<cubes.size(); i++) {
-    Cube obj = cubes.get(i);
-    obj.display();
+  // Loop through all objects in arraylists and display them
+  for (Stage s : stage_objs) s.display();
+  for (Cube c : cubes) c.display();
+  for (Pipe p : pipes) p.display();
+  
+  for (Goomba g : goombas) {
+    g.movement();
+    g.display();
   }
   
-  for (int i=0; i<pipes.size(); i++) {
-    Pipe obj = pipes.get(i);
-    obj.display();
-  }
-  
-
 
   player.display();
   player.jump();
   player.update();
   player.checkEdges();
-
-  enemy1.display();
-  enemy1.movement();
-  enemy2.movement();
-  enemy2.display();
 }

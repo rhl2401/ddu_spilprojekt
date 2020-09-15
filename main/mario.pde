@@ -11,7 +11,6 @@ class Mario {
 
   Mario(float x, float y) {
     location = new PVector(x, y);
-    
   }
 
   void update() {
@@ -19,18 +18,15 @@ class Mario {
     vel.add(gravity);
     vel.limit(8);
     location.add(vel);
-
-    //vel.mult(0);
-
     acc.mult(0);
   }
 
   void display() {
     float w = 50;
     float h = 100;
-    fill(48,220,255);
-    
-    image(mario_sprite,location.x,location.y, w,h);
+    fill(48, 220, 255);
+
+    image(mario_sprite, location.x, location.y, w, h);
   }
 
   void jump() { 
@@ -38,14 +34,11 @@ class Mario {
     if (keyPressed && can_jump == true) {
       int jump_frames = frameCount;
       if (frameCount < jump_frames+1) {
-        acc = new PVector(0,0);
+        acc = new PVector(0, 0);
         if (key == 'w' || key == 'W') {
           acc = new PVector(0, -10);
           can_jump = false;
           keys[2] =false; 
-
-          //} else {
-          //  acc.mult(0);
         }
       }
     }
@@ -77,7 +70,7 @@ class Mario {
       can_jump = true;
     }
   }
-  
+
   //Possible two-keys-at-once
   /*
 void keyReleased() {
@@ -87,29 +80,29 @@ void keyReleased() {
    keys[1] = false;
    if (key == 'w')
    keys[2] = false;
-  }
-  
-void keyPressed() {
-  if (key == 'A' || key == 'a') {
-      player.move("left");
-      keys[0]=true;
-    } else if (key == 'D' || key == 'd') {
-      player.move("right");
-      keys[1] = true;
-    } /// jump here
-    
-    int jump_frames = frameCount;
-      if (frameCount < jump_frames+1) {
-        player.acc = new PVector(0,0);
-        if (key == 'w' || key == 'W') {
-          player.acc = new PVector(0, -10);
-          can_jump = false;
-          keys[2] =false; 
-
-          //} else {
-          //  acc.mult(0);
-        }
-      }
-  
-}*/
+   }
+   
+   void keyPressed() {
+   if (key == 'A' || key == 'a') {
+   player.move("left");
+   keys[0]=true;
+   } else if (key == 'D' || key == 'd') {
+   player.move("right");
+   keys[1] = true;
+   } /// jump here
+   
+   int jump_frames = frameCount;
+   if (frameCount < jump_frames+1) {
+   player.acc = new PVector(0,0);
+   if (key == 'w' || key == 'W') {
+   player.acc = new PVector(0, -10);
+   can_jump = false;
+   keys[2] =false; 
+   
+   //} else {
+   //  acc.mult(0);
+   }
+   }
+   
+   }*/
 }
