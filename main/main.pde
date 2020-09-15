@@ -1,7 +1,9 @@
-//Import sound library
+
+// Import sound library
 import processing.sound.*;
 ArrayList<SoundFile> soundFiles = new ArrayList<SoundFile>();
 ArrayList<String> soundNames = new ArrayList<String>();
+
 
 // X-value to shift all objects along x-axis
 float world_x = 0;
@@ -22,13 +24,19 @@ ScoreBoard score = new ScoreBoard();
 PImage background;
 // Mario image
 PImage mario_sprite;
+// Goomba imgage
+PImage goomba_sprite;
 
 // Stage objects 
 ArrayList<Stage> stage_objs = new ArrayList<Stage>();
 ArrayList<Cube> cubes = new ArrayList<Cube>();
 ArrayList<Pipe> pipes = new ArrayList<Pipe>();
 
+// NPCs
+ArrayList<Goomba> goombas = new ArrayList<Goomba>();
+
 Mario player;
+
 
 
 void setup() {
@@ -40,10 +48,15 @@ void setup() {
   keys[1] = false;
   keys[2] = false; 
   mario_sprite = loadImage("mario.png");
+  goomba_sprite = loadImage("goomba.png");
   player = new Mario(900, 800);
 
   initSound();
   playSound("overworld", 0.5);
+
+  goombas.add(new Goomba(900, 800));
+  goombas.add(new Goomba(1000, 800));
+  
   generateStage();
 }
 
@@ -63,41 +76,22 @@ void draw() {
   score.display();
 
 
-  /*if (keyPressed) {
-   if (key == 'A' || key == 'a' && keys[0]) {
-   player.move("left");
-   keys[0]=true;
-   } else if (key == 'D' || key == 'd') {
-   player.move("right");
-   keys[1] = true;
-   //if (world_x < world_max) world_x += player_move_speed;
-   } 
-   }*/
 
-  for (int i=0; i<stage_objs.size(); i++) {
-    Stage obj = stage_objs.get(i);
-    obj.display();
+  // Loop through all objects in arraylists and display them
+  for (Stage s : stage_objs) s.display();
+  for (Cube c : cubes) c.display();
+  for (Pipe p : pipes) p.display();
+  
+  for (Goomba g : goombas) {
+    g.movement();
+    g.display();
   }
-  for (int i=0; i<cubes.size(); i++) {
-    Cube obj = cubes.get(i);
-    obj.display();
-  }
-
-  for (int i=0; i<pipes.size(); i++) {
-    Pipe obj = pipes.get(i);
-    obj.display();
-  }
-
-
 
   player.display();
   player.jump();
   player.update();
   player.checkEdges();
   player.direction();
-
-  println("acc: " + player.acc);
-  println("vel: "+ player.vel);
 }
 
 void keyPressed() 

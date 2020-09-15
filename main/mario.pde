@@ -10,9 +10,17 @@ class Mario {
   PVector vel = new PVector(0, 0);
   PVector acc = new PVector(0, 0);
   PVector gravity = new PVector(0, 0.3);
+  
+  float w = unit;
+  float h = unit*2;
+
 
   Mario(float x, float y) {
     location = new PVector(x, y);
+  }
+ 
+  Box getBox() {
+    return new Box("player", location.x, location.y, w, h); 
   }
 
   void update() {
@@ -20,9 +28,6 @@ class Mario {
     vel.add(gravity);
     vel.limit(10);
     location.add(vel);
-
-    //vel.mult(0);
-
     acc.mult(0);
   }
 
@@ -48,22 +53,22 @@ class Mario {
        image(mario_sprite,0,0,50,100);
        popMatrix();
     }
-    
+
+    image(mario_sprite, location.x, location.y, w, h);
   }
 
   void jump() { 
-
-    /*if (keyPressed) {
-      //int jump_frames = frameCount;
-      if (frameCount < frameCount+1) {
+    if (keyPressed && can_jump) {
+      int jump_frames = frameCount;
+      if (frameCount < jump_frames+1) {
         acc = new PVector(0, 0);
-        if (key == 'w' || key == 'W' && can_jump == true) {
+        if (key == 'w' || key == 'W') {
           acc = new PVector(0, -10);
           can_jump = false;
           keys[2] =false; 
         }
       }
-    }*/
+    }
   }
 
   void move(String direction) {
@@ -93,7 +98,4 @@ class Mario {
     }
   }
 
-  //Possible two-keys-at-once
-
- 
 }

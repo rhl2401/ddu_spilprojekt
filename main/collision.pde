@@ -9,14 +9,13 @@ class Box {
     y = y_in;
     w = w_in;
     h = h_in;
-  }
+  }  
 }
 
 
-static String[] BoxCollider(Box b1, Box b2) {
-  // String[3] will return "box 1 is on top/left/right/bottom of box 2"
-  String[] arr = new String[4];
-  if ((b1.x + b1.w > b2.x && 
+
+boolean boxCollision(Box b1, Box b2) {
+    if ((b1.x + b1.w > b2.x && 
        b1.x + b1.w < b2.x + b2.w && 
        b1.y + b1.h > b2.y && 
        b1.y + b1.h < b2.y + b2.h) ||
@@ -24,14 +23,18 @@ static String[] BoxCollider(Box b1, Box b2) {
        b2.x + b2.w < b1.x + b1.w && 
        b2.y + b2.h > b1.y && 
        b2.y + b2.h < b1.y + b1.h)) {
-     
-     arr[0] = "true";
-     arr[1] = b1.tag;
-     arr[2] = b2.tag;
-     arr[3] = "Noget her"; 
+     return true; 
    } else {
-     arr[0] = "false";
+     return false;
    }
-   
-   return arr;
+}
+
+
+
+float degreesBetween(Box b1, Box b2) {
+  PVector b1_vec = new PVector(b1.x+b1.w/2, b1.y+b1.h/2);
+  PVector b2_vec = new PVector(b2.x+b2.w/2, b2.y+b2.h/2);
+  PVector vec_between = b2_vec.sub(b1_vec);
+  PVector water_straight = new PVector(1, 0); 
+  return degrees(PVector.angleBetween(water_straight, vec_between));
 }
