@@ -8,9 +8,17 @@ class Mario {
   PVector vel = new PVector(0, 0);
   PVector acc = new PVector(0, 0);
   PVector gravity = new PVector(0, 0.3);
+  
+  float w = unit;
+  float h = unit*2;
+
 
   Mario(float x, float y) {
     location = new PVector(x, y);
+  }
+  
+  Box getBox() {
+    return new Box("player", location.x, location.y, w, h); 
   }
 
   void update() {
@@ -22,8 +30,6 @@ class Mario {
   }
 
   void display() {
-    float w = 50;
-    float h = 100;
     fill(48, 220, 255);
 
     image(mario_sprite, location.x, location.y, w, h);
