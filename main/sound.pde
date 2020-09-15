@@ -5,20 +5,19 @@ void playSound(String name) {
 
 void playSound(String name, float vol) {  
   int soundIndex = -1;
-  
+
   for (int i=0; i<soundNames.size(); i++) {
     String soundName = soundNames.get(i);
     if (soundName.equals(name)) {
       soundIndex = i;
     }
   }
-  
+
   if (soundIndex != -1) {
     SoundFile sound = soundFiles.get(soundIndex);
     sound.amp(vol);
     sound.play();
   }
-  
 }
 
 
@@ -32,7 +31,7 @@ void initSound() {
   soundFiles.add(new SoundFile(this, "nsmb_power-up.wav"));
   soundFiles.add(new SoundFile(this, "nsmb_jump.wav"));
   soundFiles.add(new SoundFile(this, "nsmb_death.wav"));
-  
+
   soundNames.add("overworld");
   soundNames.add("stage_complete");
   soundNames.add("coin");
