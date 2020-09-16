@@ -4,6 +4,8 @@ import processing.sound.*;
 ArrayList<SoundFile> soundFiles = new ArrayList<SoundFile>();
 ArrayList<String> soundNames = new ArrayList<String>();
 
+//Mario attributes 
+float jump_speed = 15;
 
 // X-value to shift all objects along x-axis
 float world_x = 0;
@@ -14,7 +16,6 @@ float player_move_speed = 8;
 float unit = 50;
 boolean started = false;
 
-PVector gravity = new PVector(0, 4);
 boolean[] keys;
 
 // Score
@@ -113,7 +114,7 @@ void keyPressed()
 
   if ((key == 'w' || key == 'W') && can_jump) 
   {
-    player.yspeed = -15;
+    player.yspeed = -jump_speed;
     can_jump = false;
     keys[2] = true;
     playSound("jump");
