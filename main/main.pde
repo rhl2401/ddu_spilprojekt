@@ -56,9 +56,8 @@ void setup() {
   player = new Mario(900, 800);
 
   initSound();
-  //playSound("overworld", 0.5);
   main_theme = soundFiles.get(0);
-  main_theme.amp(.4);
+  main_theme.amp(.3);
   main_theme.play();
 
   goombas.add(new Goomba(900, 800));
