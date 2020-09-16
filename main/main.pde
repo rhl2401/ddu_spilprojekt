@@ -8,7 +8,8 @@ ArrayList<String> soundNames = new ArrayList<String>();
 float jump_speed = 15;
 
 // Sound turn on/off
-boolean soundOn = false;
+boolean soundOn = true;
+SoundFile main_theme;
 
 // X-value to shift all objects along x-axis
 float world_x = 0;
@@ -55,7 +56,10 @@ void setup() {
   player = new Mario(900, 800);
 
   initSound();
-  playSound("overworld", 0.5);
+  //playSound("overworld", 0.5);
+  main_theme = soundFiles.get(0);
+  main_theme.amp(.4);
+  main_theme.play();
 
   goombas.add(new Goomba(900, 800));
   goombas.add(new Goomba(1000, 800));
