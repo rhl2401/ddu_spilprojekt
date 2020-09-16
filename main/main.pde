@@ -7,6 +7,9 @@ ArrayList<String> soundNames = new ArrayList<String>();
 //Mario attributes 
 float jump_speed = 15;
 
+// Sound turn on/off
+boolean soundOn = false;
+
 // X-value to shift all objects along x-axis
 float world_x = 0;
 float world_max = 9000;
