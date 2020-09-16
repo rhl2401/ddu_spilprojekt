@@ -35,6 +35,7 @@ ArrayList<Pipe> pipes = new ArrayList<Pipe>();
 ArrayList<Goomba> goombas = new ArrayList<Goomba>();
 
 Mario player;
+Flagpole flagpole;
 
 
 
@@ -55,6 +56,8 @@ void setup() {
 
   goombas.add(new Goomba(900, 800));
   goombas.add(new Goomba(1000, 800));
+  
+  flagpole = new Flagpole(2000);
 
   generateStage();
 }
@@ -78,6 +81,8 @@ void draw() {
     g.movement();
     g.display();
   }
+  
+  flagpole.display();
 
   //player attributes
   player.display();

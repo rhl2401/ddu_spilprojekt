@@ -50,6 +50,7 @@ class Mario {
       image(mario_sprite, 0, 0, 50, 100);
       popMatrix();
     }
+    imageMode(CORNER);
   }
 
   void jump() { 
@@ -87,11 +88,10 @@ class Mario {
     }
   }
 
-
   void checkEdges() {
 
-    if (y >= 800) {
-      y = 800;
+    if (y >= 900-h/2) {
+      y = 900-h/2;
       yspeed *=0;
       can_jump = true;
       
