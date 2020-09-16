@@ -13,6 +13,8 @@ class Mario {
   float yspeed, xspeed;
   float w = unit;
   float h = unit*2;
+  boolean hitFlagpole = false;
+  
   Mario(float x, float y) {
     location_x = x;
     location_y = y;

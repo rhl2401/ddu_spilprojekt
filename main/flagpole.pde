@@ -15,4 +15,8 @@ class Flagpole {
   void display() {
     image(img, x-world_x, y, w, h);
   }
+  
+  Box getBox() {
+    return new Box("flagpole", x-world_x, y, w, h);
+  }
 }
