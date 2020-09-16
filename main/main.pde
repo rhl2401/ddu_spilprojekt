@@ -49,13 +49,13 @@ void setup() {
   mario_sprite = loadImage("mario.png");
   goomba_sprite = loadImage("goomba.png");
   player = new Mario(900, 800);
-  
+
   initSound();
   playSound("overworld", 0.5);
 
   goombas.add(new Goomba(900, 800));
   goombas.add(new Goomba(1000, 800));
-  
+
   generateStage();
 }
 
@@ -81,13 +81,12 @@ void draw() {
 
   //player attributes
   player.display();
-  
   player.update();
+  player.move();
   player.checkEdges();
   //println(can_jump);
   //println(player.location.y);
   println(keys);
-  
 }
 
 void keyPressed() 
@@ -97,21 +96,23 @@ void keyPressed()
   {
     left = true;
     right = false;
-    player.move();
+    //player.move();
     keys[0] = true;
   } 
   if (key == 'D' || key == 'd') 
   {
     left = false;
     right = true;
-    player.move();
+    //player.move();
     keys[1] = true;
   }
-  
-  if (key == 'w' || key == 'W' && can_jump) 
+
+  if ((key == 'w' || key == 'W') && can_jump) 
   {
-    keys[2] =true;
-    player.jump();
+    player.yspeed = -15;
+    can_jump = false;
+    keys[2] = true;
+    playSound("jump");
   }
 }
 
@@ -119,5 +120,5 @@ void keyReleased()
 {
   if (key == 'a' || key == 'A') keys[0] = false;
   if (key == 'd' || key == 'D') keys[1] = false;
-  if (key == 'w' || key == 'W' && can_jump) keys[2] = false;
+  if (key == 'w' || key == 'W') keys[2] = false;
 }

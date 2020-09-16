@@ -30,4 +30,8 @@ class Goomba extends Enemy {
   void display() {
     image(goomba_sprite, e_location.x-world_x, e_location.y, w, h);
   }
+
+  Box getBox() {
+    return new Box("goomba", e_location.x, e_location.y, w, h);
+  }
 }

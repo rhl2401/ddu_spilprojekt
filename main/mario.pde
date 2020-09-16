@@ -57,16 +57,14 @@ class Mario {
       {
         player.yspeed = -15;
         can_jump = false;
-        if (can_jump == false) {
-          keys[2] = true;
-        }
-
+        keys[2] = true;
         playSound("jump");
       }
     }
   }
 
   void move() {
+    
     if (keys[1]) {
       if (player.x > width_w*0.55) {
         world_x += player_move_speed;
@@ -74,15 +72,17 @@ class Mario {
         player.x += player_move_speed;
       }
     } 
-    if (keys[0]) {
+    if (keys[0]) 
+    {
       if (player.x < width_w*0.45) {
         world_x -= player_move_speed;
       } else {
         player.x -= player_move_speed;
       }
     }
-
-    if (keys[2]) {
+    
+    if (keys[2] && can_jump) 
+    {
       player.jump();
     }
   }
@@ -94,7 +94,7 @@ class Mario {
       y = height-100;
       yspeed *=0;
       can_jump = true;
-      //keys[2] = false;
+      
     }
   }
 }
