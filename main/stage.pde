@@ -16,7 +16,7 @@ class Stage {
   }
 
   Box getBox() {
-    return new Box("stage", x, y, w, h);
+    return new Box("stage", x-world_x, y, w, h);
   }
 }
 
@@ -37,7 +37,7 @@ class Cube {
   }
 
   Box getBox() {
-    return new Box("cube", x, y, unit, unit);
+    return new Box("cube", x-world_x, y, unit, unit);
   }
 }
 
@@ -93,7 +93,7 @@ class Pipe {
   }
 
   Box getBox() {
-    return new Box("pipe", x, y_coord, unit*2, unit*3);
+    return new Box("pipe", x-world_x, y_coord, unit*2, unit*3);
   }
 }
 
