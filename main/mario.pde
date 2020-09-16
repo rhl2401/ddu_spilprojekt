@@ -8,7 +8,7 @@ boolean left = false;
 class Mario {
   float location_x; 
   float location_y;
-  float x = 800, y=900;
+  float x = 900, y=800;
   float g = 0.5;
   float yspeed, xspeed;
   float w = unit;
@@ -55,7 +55,7 @@ class Mario {
   void jump() { 
     if (can_jump) {
       {
-        player.yspeed = -15;
+        player.yspeed = -2;
         can_jump = false;
         keys[2] = true;
         playSound("jump");
@@ -90,8 +90,8 @@ class Mario {
 
   void checkEdges() {
 
-    if (y >= height-100) {
-      y = height-100;
+    if (y >= 800) {
+      y = 800;
       yspeed *=0;
       can_jump = true;
       
