@@ -1,101 +1,100 @@
 
 boolean max_left = false;
 boolean max_right = false;
-boolean can_jump = false;
+boolean can_jump = true;
 boolean right = false;
 boolean left = false; 
 
 class Mario {
-  PVector location; 
-  PVector vel = new PVector(0, 0);
-  PVector acc = new PVector(0, 0);
-  PVector gravity = new PVector(0, 0.3);
-  
+  float location_x; 
+  float location_y;
+  float x = 800, y=900;
+  float g = 0.5;
+  float yspeed, xspeed;
   float w = unit;
   float h = unit*2;
-
-
   Mario(float x, float y) {
-    location = new PVector(x, y);
+    location_x = x;
+    location_y = y;
   }
- 
+
   Box getBox() {
-    return new Box("player", location.x, location.y, w, h); 
+    return new Box("player", location_x, location_y, w, h);
   }
 
   void update() {
-    vel.add(acc);
-    vel.add(gravity);
-    vel.limit(10);
-    location.add(vel);
-    acc.mult(0);
-  }
-
-  void display() {
-    float w = 50;
-    float h = 100;
-    fill(48, 220, 255);
-  }
-  
-  void direction() {
-    if (right == true) {
-       pushMatrix();
-       translate(player.location.x,player.location.y);
-       scale(1,1);
-       imageMode(CENTER);
-       image(mario_sprite,0,0,50,100);
-       popMatrix();
-    } else if (left == true) {
-       pushMatrix();
-       translate(player.location.x,player.location.y);
-       scale(-1,1);
-       imageMode(CENTER);
-       image(mario_sprite,0,0,50,100);
-       popMatrix();
+    player.y += yspeed;
+    player.x += xspeed;
+    player.yspeed += g;
+    if (player.yspeed < 0) {
+      g = 0.6;
+    } else {
+      g = 0.4;
     }
+  }
 
-    image(mario_sprite, location.x, location.y, w, h);
+  void display() 
+  {
+    if (right == true) {
+      pushMatrix();
+      translate(player.x, player.y);
+      scale(1, 1);
+      imageMode(CENTER);
+      image(mario_sprite, 0, 0, 50, 100);
+      popMatrix();
+    } else if (left == true) {
+      pushMatrix();
+      translate(player.x, player.y);
+      scale(-1, 1);
+      imageMode(CENTER);
+      image(mario_sprite, 0, 0, 50, 100);
+      popMatrix();
+    }
   }
 
   void jump() { 
-    if (keyPressed && can_jump) {
-      int jump_frames = frameCount;
-      if (frameCount < jump_frames+1) {
-        acc = new PVector(0, 0);
-        if (key == 'w' || key == 'W') {
-          acc = new PVector(0, -10);
-          can_jump = false;
-          keys[2] =false; 
-        }
+    if (can_jump) {
+      {
+        player.yspeed = -15;
+        can_jump = false;
+        keys[2] = true;
+        playSound("jump");
       }
     }
   }
 
-  void move(String direction) {
-    if (direction == "right") {
-      if (location.x > width_w*0.55) {
+  void move() {
+    
+    if (keys[1]) {
+      if (player.x > width_w*0.55) {
         world_x += player_move_speed;
       } else {
-        location.x += player_move_speed;
+        player.x += player_move_speed;
       }
-    } else if (direction == "left") {
-      if (location.x < width_w*0.45) {
+    } 
+    if (keys[0]) 
+    {
+      if (player.x < width_w*0.45) {
         world_x -= player_move_speed;
       } else {
-        location.x -= player_move_speed;
+        player.x -= player_move_speed;
       }
+    }
+    
+    if (keys[2] && can_jump) 
+    {
+      player.jump();
     }
   }
 
 
   void checkEdges() {
 
-    if (location.y < 200) {
-      location.y = 200;
-    } else if (location.y > height-200) {
-      location.y = height-200;
+    if (y >= height-100) {
+      y = height-100;
+      yspeed *=0;
       can_jump = true;
+      
     }
   }
-
 }

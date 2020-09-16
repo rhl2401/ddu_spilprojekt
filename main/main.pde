@@ -19,7 +19,6 @@ boolean[] keys;
 
 // Score
 ScoreBoard score = new ScoreBoard();
-
 // Bagground image
 PImage background;
 // Mario image
@@ -56,7 +55,7 @@ void setup() {
 
   goombas.add(new Goomba(900, 800));
   goombas.add(new Goomba(1000, 800));
-  
+
   generateStage();
 }
 
@@ -68,30 +67,26 @@ void draw() {
   if (started == false) {
     image(mario_sprite, 900, 800, 50, 100);
   }
-
-  // Update plyer object
-  player.update();
-
   // Display scoreboard 
   score.display();
-
-
 
   // Loop through all objects in arraylists and display them
   for (Stage s : stage_objs) s.display();
   for (Cube c : cubes) c.display();
   for (Pipe p : pipes) p.display();
-  
   for (Goomba g : goombas) {
     g.movement();
     g.display();
   }
 
+  //player attributes
   player.display();
-  player.jump();
   player.update();
+  player.move();
   player.checkEdges();
-  player.direction();
+  //println(can_jump);
+  //println(player.location.y);
+  println(keys);
 }
 
 void keyPressed() 
@@ -101,33 +96,24 @@ void keyPressed()
   {
     left = true;
     right = false;
-    player.move("left");
+    //player.move();
     keys[0] = true;
   } 
   if (key == 'D' || key == 'd') 
   {
     left = false;
     right = true;
-    player.move("right");
+    //player.move();
     keys[1] = true;
   }
-  player.vel = new PVector(0, 0);
-  if (key == 'w' || key == 'W' && can_jump == true) 
+
+  if ((key == 'w' || key == 'W') && can_jump) 
   {
-    player.acc = new PVector(0, -10);
+    player.yspeed = -15;
     can_jump = false;
-    keys[2] =false;
+    keys[2] = true;
+    playSound("jump");
   }
-
-
-  /*if (frameCount < frameCount+1) {
-   player.acc = new PVector(0, 0);
-   if (key == 'w' || key == 'W' && can_jump == true) {
-   player.acc = new PVector(0, -10);
-   can_jump = false;
-   keys[2] = true;
-   }
-   }*/
 }
 
 void keyReleased() 
