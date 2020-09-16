@@ -41,8 +41,7 @@ class Mario {
     }
   }
 
-  void display() 
-  {
+  void display() {
     if (right == true) {
       pushMatrix();
       translate(player.x, player.y);
@@ -59,16 +58,6 @@ class Mario {
     imageMode(CORNER);
   }
 
-  /*void jump() { 
-    if (can_jump) {
-      {
-        player.yspeed = -15;
-        can_jump = false;
-        keys[2] = true;
-        playSound("jump");
-      }
-    }
-  }*/
 
   void move() {
     if (canMove) {
@@ -87,14 +76,8 @@ class Mario {
           player.x -= player_move_speed;
         }
       }
-      
-      if (keys[2] && can_jump) 
-      {
-        player.jump();
-      }
     }
 
-    
     // Mario hits flagpole, stop and fix position for 1 sek
     if (boxCollision(player.getBox(), flagpole.getBox()) && !hitFlagpole) {
       canMove = false;
@@ -125,8 +108,8 @@ class Mario {
     }
   }
 
-  void checkEdges() {
 
+  void checkEdges() {
     if (y >= 900-h) {
       y = 900-h;
       yspeed *=0;
