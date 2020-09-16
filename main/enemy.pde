@@ -32,6 +32,7 @@ class Goomba extends Enemy {
   }
 
   Box getBox() {
-    return new Box("goomba", e_location.x, e_location.y, w, h);
+    rect(e_location.x-world_x, e_location.y, w, h);
+    return new Box("goomba", e_location.x-world_x, e_location.y, w, h);
   }
 }

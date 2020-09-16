@@ -21,7 +21,8 @@ class Mario {
   }
 
   Box getBox() {
-    return new Box("player", location_x, location_y, w, h);
+    rect(x, y, w, h);
+    return new Box("player", x, y, w, h);
   }
 
   void update() {
@@ -41,15 +42,13 @@ class Mario {
       pushMatrix();
       translate(player.x, player.y);
       scale(1, 1);
-      imageMode(CENTER);
       image(mario_sprite, 0, 0, 50, 100);
       popMatrix();
     } else if (left == true) {
       pushMatrix();
       translate(player.x, player.y);
       scale(-1, 1);
-      imageMode(CENTER);
-      image(mario_sprite, 0, 0, 50, 100);
+      image(mario_sprite, 0-w, 0, 50, 100);
       popMatrix();
     }
     imageMode(CORNER);
