@@ -39,11 +39,11 @@ float degreesBetween(Box b1, Box b2) {
 
 
 // Function to return a direction from an angle
-String isAngle(float angle) {
-  String angle_desc = "";
-  if (angle > 315 && angle <= 45) angle_desc = "right";
-  if (angle > 45 && angle <= 135) angle_desc = "bottom";
-  if (angle > 135 && angle <= 225) angle_desc = "left";
-  if (angle > 225 && angle <= 315) angle_desc = "top";
-  return angle_desc;
+String directionFromAngle(float angle) {
+  String direction = "";
+  if (angle > 315 && angle <= 45) direction = "right";
+  if (angle > 45 && angle <= 135) direction = "bottom";
+  if (angle > 135 && angle <= 225) direction = "left";
+  if (angle > 225 && angle <= 315) direction = "top";
+  return direction;
 }
