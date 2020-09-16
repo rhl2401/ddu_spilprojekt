@@ -13,7 +13,11 @@ class Mario {
   float yspeed, xspeed;
   float w = unit;
   float h = unit*2;
+  boolean canMove = true;
   boolean hitFlagpole = false;
+  boolean playedFlagpoleSlide = false;
+  boolean playedComplete = false;
+  int flagTimer;
   
   Mario(float x, float y) {
     location_x = x;
@@ -21,18 +25,19 @@ class Mario {
   }
 
   Box getBox() {
-    rect(x, y, w, h);
     return new Box("player", x, y, w, h);
   }
 
   void update() {
-    player.y += yspeed;
-    player.x += xspeed;
-    player.yspeed += g;
-    if (player.yspeed < 0) {
-      g = 0.6;
-    } else {
-      g = 0.4;
+    if (canMove) {
+      player.y += yspeed;
+      player.x += xspeed;
+      player.yspeed += g;
+      if (player.yspeed < 0) {
+        g = 0.6;
+      } else {
+        g = 0.4;
+      }
     }
   }
 
@@ -66,26 +71,57 @@ class Mario {
   }
 
   void move() {
-    
-    if (keys[1]) {
-      if (player.x > width_w*0.55) {
-        world_x += player_move_speed;
-      } else {
-        player.x += player_move_speed;
+    if (canMove) {
+      if (keys[1]) {
+        if (player.x > width_w*0.55) {
+          world_x += player_move_speed;
+        } else {
+          player.x += player_move_speed;
+        }
+      } 
+      if (keys[0]) 
+      {
+        if (player.x < width_w*0.45) {
+          world_x -= player_move_speed;
+        } else {
+          player.x -= player_move_speed;
+        }
       }
-    } 
-    if (keys[0]) 
-    {
-      if (player.x < width_w*0.45) {
-        world_x -= player_move_speed;
-      } else {
-        player.x -= player_move_speed;
+      
+      if (keys[2] && can_jump) 
+      {
+        player.jump();
       }
     }
     
-    if (keys[2] && can_jump) 
-    {
-      player.jump();
+    
+    // Mario hits flagpole, stop and fix position for 1 sek
+    if (boxCollision(player.getBox(), flagpole.getBox()) && !hitFlagpole) {
+      canMove = false;
+      hitFlagpole = true;
+      flagTimer = millis();
+      main_theme.stop();
+    }
+    
+    // Mario is fixed on flagpole. Play sound and slide downwards
+    if (millis()-flagTimer > 1000 && y < unit*16 && hitFlagpole) {
+      y += 5;
+      if (!playedFlagpoleSlide) { 
+        playSound("flagpole"); 
+        playedFlagpoleSlide = true;
+      }
+    }
+    
+    // Mario has slidden down the pole, play cource_clear and run away!
+    if (y > unit*16-5 && hitFlagpole && millis()-flagTimer > 2000) {
+      if (!playedComplete) {
+        playSound("stage_complete_classic");
+        playedComplete = true;
+      }
+      
+      if (millis()-flagTimer > 2300) {
+        x += player_move_speed;
+      }
     }
   }
 
