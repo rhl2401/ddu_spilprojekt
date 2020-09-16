@@ -12,8 +12,6 @@ class Box {
   }  
 }
 
-
-
 boolean boxCollision(Box b1, Box b2) {
     if ((b1.x + b1.w > b2.x && 
        b1.x + b1.w < b2.x + b2.w && 

@@ -81,17 +81,17 @@ void draw() {
     g.movement();
     g.display();
   }
+  Goomba g = goombas.get(1);
+  println(boxCollision(player.getBox(), g.getBox()));
   
   flagpole.display();
-
   //player attributes
   player.display();
   player.update();
   player.move();
   player.checkEdges();
-  //println(can_jump);
-  //println(player.location.y);
-  println(keys);
+  //println(player.x);
+  
 }
 
 void keyPressed() 
