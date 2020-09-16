@@ -1,7 +1,7 @@
 
 boolean max_left = false;
 boolean max_right = false;
-boolean can_jump = true;
+boolean can_jump;/* = true;*/
 boolean right = false;
 boolean left = false; 
 
@@ -19,7 +19,7 @@ class Mario {
   }
 
   Box getBox() {
-    rect(x, y, w, h);
+    
     return new Box("player", x, y, w, h);
   }
 
@@ -52,16 +52,16 @@ class Mario {
     imageMode(CORNER);
   }
 
-  void jump() { 
+  /*void jump() { 
     if (can_jump) {
       {
-        player.yspeed = -2;
+        player.yspeed = -15;
         can_jump = false;
         keys[2] = true;
         playSound("jump");
       }
     }
-  }
+  }*/
 
   void move() {
     
@@ -81,16 +81,16 @@ class Mario {
       }
     }
     
-    if (keys[2] && can_jump) 
+    /*if (keys[2] && can_jump) 
     {
       player.jump();
-    }
+    }*/
   }
 
   void checkEdges() {
 
-    if (y >= 900-h/2) {
-      y = 900-h/2;
+    if (y >= 900-h) {
+      y = 900-h;
       yspeed *=0;
       can_jump = true;
       

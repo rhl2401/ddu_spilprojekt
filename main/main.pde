@@ -15,6 +15,7 @@ int height_w = 1000;
 float player_move_speed = 8;
 float unit = 50;
 boolean started = false;
+float stand = 0;
 
 boolean[] keys;
 
@@ -56,7 +57,7 @@ void setup() {
 
   goombas.add(new Goomba(900, 800));
   goombas.add(new Goomba(1000, 800));
-  
+
   flagpole = new Flagpole(2000);
 
   generateStage();
@@ -81,17 +82,37 @@ void draw() {
     g.movement();
     g.display();
   }
+
+  //Checks for collision between objects mario and goomba1
   Goomba g = goombas.get(1);
-  println(boxCollision(player.getBox(), g.getBox()));
-  
+  if (boxCollision(player.getBox(), g.getBox())) {
+    fill(255, 0, 0);
+    rect(900, 450, 50, 50);
+    println(degreesBetween(player.getBox(), g.getBox()));
+  }
+
+  //Chekcks for collision between Mario and stage
+  for (Stage s : stage_objs) {   
+    if (boxCollision(player.getBox(), s.getBox())) {
+      fill(0, 255, 0);
+      rect(900, 500, 50, 50);
+      player.yspeed = 0;
+      player.y = unit*17-player.w;
+      can_jump = true;
+    }
+  }
+
+
+
+
   flagpole.display();
   //player attributes
   player.display();
   player.update();
   player.move();
-  player.checkEdges();
-  //println(player.x);
-  
+  //player.checkEdges();
+
+  println(player.y);
 }
 
 void keyPressed() 
