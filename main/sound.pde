@@ -27,7 +27,6 @@ void initSound() {
   if (soundOn) {
     soundFiles.add(new SoundFile(this, "overworld.mp3"));
     soundFiles.add(new SoundFile(this, "nsmb_course_clear.wav"));
-    soundFiles.add(new SoundFile(this, "course_clear_classic.mp3"));
     soundFiles.add(new SoundFile(this, "nsmb_coin.wav"));
     soundFiles.add(new SoundFile(this, "nsmb_fireball.wav"));
     soundFiles.add(new SoundFile(this, "nsmb_flagpole.wav"));
@@ -35,12 +34,9 @@ void initSound() {
     soundFiles.add(new SoundFile(this, "nsmb_power-up.wav"));
     soundFiles.add(new SoundFile(this, "nsmb_jump.wav"));
     soundFiles.add(new SoundFile(this, "nsmb_death.wav"));
-    soundFiles.add(new SoundFile(this, "nsmb_gameover.wav"));
-    soundFiles.add(new SoundFile(this, "nsmb_hurry_up.wav"));
   
     soundNames.add("overworld");
     soundNames.add("stage_complete");
-    soundNames.add("stage_complete_classic");
     soundNames.add("coin");
     soundNames.add("fireball");
     soundNames.add("flagpole");
@@ -48,7 +44,5 @@ void initSound() {
     soundNames.add("power_up");
     soundNames.add("jump");
     soundNames.add("death");
-    soundNames.add("gameover");
-    soundNames.add("hurry");
   }
 }
