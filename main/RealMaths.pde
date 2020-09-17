@@ -35,4 +35,23 @@ static class RealMaths {
   static PVector vectorBetween(PVector A, PVector B) {
     return A.sub(B);
   }
+  
+  // Method to return cross-vector
+  static PVector crossVector(PVector A) {
+    return new PVector(A.y * (-1), A.x);
+  }
+  
+  // Method to return the unit vector of a vector
+  static PVector unitVector(PVector A) {
+    float scale = 1 / RealMaths.magnitude(A);
+    return new PVector(A.x * scale, A.y * scale);
+  }
+  
+  // Method to return cross product
+  static PVector crossProduct(PVector A, PVector B) {
+    float A_coord = A.y * B.z - A.z * B.y;
+    float B_coord = A.z * B.x - A.x * B.z;
+    float C_coord = A.x * B.y - A.y * B.x;
+    return new PVector(A_coord, B_coord, C_coord);
+  }
 }
