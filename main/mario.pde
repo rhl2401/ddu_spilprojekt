@@ -12,7 +12,7 @@ class Mario {
   float g = 0.5;
   float yspeed, xspeed;
   float w = unit;
-  float h = unit*2;
+  float h = unit*1.8;
   boolean canMove = true;
   boolean hitFlagpole = false;
   boolean playedFlagpoleSlide = false;
@@ -65,13 +65,13 @@ class Mario {
       pushMatrix();
       translate(player.x, player.y);
       scale(1, 1);
-      image(mario_sprite, 0, 0, 50, 100);
+      image(mario_sprite, 0, 0, w, h);
       popMatrix();
     } else if (left == true) {
       pushMatrix();
       translate(player.x, player.y);
       scale(-1, 1);
-      image(mario_sprite, 0-w, 0, 50, 100);
+      image(mario_sprite, 0-w, 0, w, h);
       popMatrix();
     }
   }

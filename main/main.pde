@@ -83,7 +83,7 @@ void draw() {
   clear();   
   background(48, 220, 255);
   if (started == false) {
-    image(mario_sprite, 900, 800, 50, 100);
+    image(mario_sprite, 900, 800, player.w, player.h);
   }
   // Display scoreboard 
   score.display();
@@ -116,7 +116,7 @@ void draw() {
     if (boxCollision(player.getBox(), s.getBox())) {
       boxCollision(player.getBox(), s.getBox());
       player.yspeed = 0;
-      player.y = unit*16;
+      player.y = unit*18-player.h;
       can_jump = true;
     }
   }
