@@ -56,10 +56,9 @@ class Mario {
       image(mario_sprite, 0-w, 0, 50, 100);
       popMatrix();
     }
-    imageMode(CORNER);
   }
 
-  /*void jump() { 
+  void jump() { 
     if (can_jump) {
       {
         player.yspeed = -15;
@@ -68,7 +67,7 @@ class Mario {
         playSound("jump");
       }
     }
-  }*/
+  }
 
   void move() {
     if (canMove) {

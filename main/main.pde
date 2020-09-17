@@ -28,7 +28,7 @@ ScoreBoard score = new ScoreBoard();
 
 // Mario image
 PImage mario_sprite;
-// Goomba imgage
+// Goomba image
 PImage goomba_sprite;
 
 // Stage objects 
@@ -61,8 +61,8 @@ void setup() {
   main_theme.amp(.3);
   main_theme.play();
 
-  goombas.add(new Goomba(900, 800));
-  goombas.add(new Goomba(1000, 800));
+  goombas.add(new Goomba(1500, 850));
+  goombas.add(new Goomba(1400, 850));
 
   flagpole = new Flagpole(2000);
 
@@ -100,11 +100,24 @@ void draw() {
   //Chekcks for collision between Mario and stage
   for (Stage s : stage_objs) {   
     if (boxCollision(player.getBox(), s.getBox())) {
-      fill(0, 255, 0);
+      //fill(0, 255, 0);
       rect(900, 500, 50, 50);
       player.yspeed = 0;
       player.y = unit*17-player.w;
       can_jump = true;
+    }
+  }
+
+  //Checks for collision between goombas and pipe
+  for (int i=0; i<goombas.size(); i++) {
+    Goomba goom = goombas.get(i);
+    for (int j=0; j<pipes.size(); j++) {
+      Pipe pip = pipes.get(j);
+      if (boxCollision(goom.getBox(), pip.getBox())) {
+        goom.enemy_vel *=-1;
+        goom.e_right = true;
+        goom.e_left = false;
+      }
     }
   }
 

@@ -1,10 +1,13 @@
 
+
 class Enemy {
   PVector e_location = new PVector();
   PVector dir;
   float enemy_vel = 1;
   float w = 10;
   float h = 10;
+  boolean e_right = false;
+  boolean e_left = true;
 
   Enemy (float x_in, float y_in, float w_in, float h_in) {
 
@@ -28,11 +31,25 @@ class Goomba extends Enemy {
   }
 
   void display() {
-    image(goomba_sprite, e_location.x-world_x, e_location.y, w, h);
+    //image(goomba_sprite, e_location.x-world_x, e_location.y, w, h);
+
+    if (e_right == true) {
+      pushMatrix();
+      translate(e_location.x-world_x, e_location.y);
+      scale(-1, 1);
+      image(goomba_sprite, 0-w, 0, w, h);
+      popMatrix();
+    } else if (e_left == true) {
+      pushMatrix();
+      translate(e_location.x-world_x, e_location.y);
+      scale(1, 1);
+      image(goomba_sprite, 0, 0, w, h);
+      popMatrix();
+    }
   }
 
   Box getBox() {
-    
+    //rect(e_location.x-world_x, e_location.y, w, h);
     return new Box("goomba", e_location.x-world_x, e_location.y, w, h);
   }
 }
