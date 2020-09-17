@@ -39,7 +39,24 @@ class Mario {
         g = 0.4;
       }
     }
+    
+    
+    // Mario collision with cubes
+    Box playerBox = player.getBox();
+    for (int i=0; i<cubes.size(); i++) {
+      Cube c = cubes.get(i);
+      if (boxCollision(playerBox, c.getBox())) {
+        Box b = c.getBox();
+        String dir = directionFromAngle(degreesBetween(playerBox, b));
+        println(dir);
+        if (dir == "bottom") {
+          player.y = b.y - player.h;
+          can_jump = true;
+        } //Other angles
+      }
+    }
   }
+
 
   void display() {
     if (right == true) {
@@ -92,7 +109,7 @@ class Mario {
       canMove = false;
       hitFlagpole = true;
       flagTimer = millis();
-      main_theme.stop();
+      if (soundOn) main_theme.stop();
     }
     
     // Mario is fixed on flagpole. Play sound and slide downwards
@@ -104,7 +121,7 @@ class Mario {
       }
     }
     
-    // Mario has slidden down the pole, play cource_clear and run away!
+    // Mario has slid down the pole, play cource_clear and run away!
     if (y > unit*16-5 && hitFlagpole && millis()-flagTimer > 2000) {
       if (!playedComplete) {
         playSound("stage_complete_classic");
