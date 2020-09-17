@@ -19,6 +19,7 @@ class Mario {
   boolean playedComplete = false;
   int flagTimer;
   float flag_y, flag_y_speed;
+  float cube_break_angle = 15;
   
   Mario(float x, float y) {
     location_x = x;
@@ -54,7 +55,14 @@ class Mario {
           player.y = b.y - player.h;
           yspeed = 0;
           can_jump = true;
-        } //Other angles
+        } else if (dir == "top") {
+          yspeed = 2;  // Do not jump through
+          // Narrow angle of break. Do not break if not from straight above
+          if (degreesBetween(playerBox, b) > 270-cube_break_angle && degreesBetween(playerBox, b) < 270 + cube_break_angle) {
+            cubes.remove(i);
+            score.addPoints(5);
+          }
+        }
       }
     }
   }
