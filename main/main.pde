@@ -78,7 +78,6 @@ void setup() {
   generateStage();
 }
 
-
 void draw() {
 
   clear();   
@@ -112,13 +111,10 @@ void draw() {
     }
   }
 
-
   //Chekcks for collision between Mario and stage
   for (Stage s : stage_objs) {   
     if (boxCollision(player.getBox(), s.getBox())) {
       boxCollision(player.getBox(), s.getBox());
-      fill(0, 255, 0);
-      rect(900, 500, 50, 50);
       player.yspeed = 0;
       player.y = unit*16;
       can_jump = true;
@@ -130,7 +126,7 @@ void draw() {
     Goomba goom = goombas.get(i);
     for (int j=0; j<pipes.size(); j++) {
       Pipe pip = pipes.get(j);
-     if (boxCollision(goom.getBox(), pip.getBox())) {
+      if (boxCollision(goom.getBox(), pip.getBox())) {
         if (directionFromBoxes(goom.getBox(), pip.getBox()) == "right") {
           goom.enemy_vel *= -1;
         } else if (directionFromBoxes(goom.getBox(), pip.getBox()) == "left") {
@@ -139,16 +135,6 @@ void draw() {
       }
     }
   }
-
-  //Checks for collision between Mario and flowers
-
-  /*for (int i=0; i<=flowers.size(); i++) {
-   flowers f = flowers.get(i);
-   if(//collision) {
-   
-   }
-   }
-   }*/
 
   //Checks for collision between koopas and pipe
   for (int i=0; i<koopas.size(); i++) {
@@ -174,31 +160,18 @@ void draw() {
     }
   }
 
-
-  /*Box box1 = new Box("fsdf", mouseX, mouseY, 100, 100);
-   Box box2 = new Box("fsdf", 200, 200, 100, 100);
-   if (boxCollision(box1, box2)) {
-   background(0, 255, 0);
-   println(directionFromBoxes(box1, box2));
-   }
-   
-   rect(mouseX, mouseY, 100, 100);
-   rect(200, 200, 100, 100);
-   */
-
-
-
   flagpole.display();
   //player attributes
   player.display();
   player.update();
   player.move();
   println(player.location_y);
+  
 }
 
 
 
-//println(player.y);
+
 
 
 void keyPressed() 
@@ -208,14 +181,14 @@ void keyPressed()
   {
     left = true;
     right = false;
-    //player.move();
+  
     keys[0] = true;
   } 
   if (key == 'D' || key == 'd') 
   {
     left = false;
     right = true;
-    //player.move();
+    
     keys[1] = true;
   }
 
