@@ -103,6 +103,14 @@ class Mario {
           player.x -= player_move_speed;
         }
       }
+      
+      if (keys[2] && can_jump)
+      {
+        player.y -= 1;
+        player.yspeed = -jump_speed;
+        can_jump = false;
+        playSound("jump");
+      }
     }
 
     // Mario hits flagpole, stop and fix position for 1 sek
