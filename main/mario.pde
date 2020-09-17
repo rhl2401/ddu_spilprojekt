@@ -47,10 +47,11 @@ class Mario {
       Cube c = cubes.get(i);
       if (boxCollision(playerBox, c.getBox())) {
         Box b = c.getBox();
-        String dir = directionFromAngle(degreesBetween(playerBox, b));
-        //println(dir);
+        String dir = directionFromBoxes(playerBox, b);
+        println(dir);
         if (dir == "bottom") {
           player.y = b.y - player.h;
+          yspeed = 0;
           can_jump = true;
         } //Other angles
       }
