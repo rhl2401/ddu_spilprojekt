@@ -105,7 +105,7 @@ void draw() {
       fill(0, 255, 0);
       rect(900, 500, 50, 50);
       player.yspeed = 0;
-      player.y = unit*17-player.w;
+      player.y = unit*16;
       can_jump = true;
     }
   }
