@@ -6,8 +6,8 @@ class Enemy {
   float enemy_vel = 1;
   float w = unit;
   float h = unit;
-  boolean e_right = true;
-  boolean e_left = false;
+  boolean e_right;
+  boolean e_left = true;
 
   Enemy (float x_in, float y_in, float w_in, float h_in) {
 

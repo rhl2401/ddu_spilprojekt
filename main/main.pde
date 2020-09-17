@@ -7,6 +7,7 @@ ArrayList<String> soundNames = new ArrayList<String>();
 //Mario attributes 
 float jump_speed = 15;
 
+
 // Sound turn on/off
 boolean soundOn = true;
 SoundFile main_theme;
@@ -107,6 +108,15 @@ void draw() {
     Goomba goomm = goombas.get(i);
     if (boxCollision(player.getBox(), goomm.getBox())) {
       if (directionFromBoxes(player.getBox(), goomm.getBox()) == "right") {
+        player.dies();
+      } else if (directionFromBoxes(player.getBox(), goomm.getBox()) == "left") {
+        player.dies();
+      } else if (directionFromBoxes(player.getBox(), goomm.getBox()) == "top") {
+        player.dies();
+      } else if (directionFromBoxes(player.getBox(), goomm.getBox()) == "bottom") {
+        score.addPoints(100);
+        goombas.remove(i);
+        player.yspeed = -2;
       }
     }
   }
@@ -128,8 +138,12 @@ void draw() {
       Pipe pip = pipes.get(j);
       if (boxCollision(goom.getBox(), pip.getBox())) {
         if (directionFromBoxes(goom.getBox(), pip.getBox()) == "right") {
+          goom.e_right = false;
+          goom.e_left = true;
           goom.enemy_vel *= -1;
         } else if (directionFromBoxes(goom.getBox(), pip.getBox()) == "left") {
+          goom.e_right = true;
+          goom.e_left = false;
           goom.enemy_vel *= -1;
         }
       }
@@ -143,8 +157,12 @@ void draw() {
       Pipe pip = pipes.get(j);
       if (boxCollision(koo.getBox(), pip.getBox())) {
         if (directionFromBoxes(koo.getBox(), pip.getBox()) == "right") {
+          koo.e_right = false;
+          koo.e_left = true;
           koo.enemy_vel *= -1;
         } else if (directionFromBoxes(koo.getBox(), pip.getBox()) == "left") {
+          koo.e_right = true;
+          koo.e_left = false;
           koo.enemy_vel *= -1;
         }
       }
@@ -152,10 +170,33 @@ void draw() {
   }
 
   //Checks for collision between Mario and koopas
-  for (int i =0; i<koopas.size(); i++) {
+  for (int i=0; i<koopas.size(); i++) {
     Koopa koop = koopas.get(i);
     if (boxCollision(player.getBox(), koop.getBox())) {
+      println(directionFromBoxes(player.getBox(), koop.getBox()));
       if (directionFromBoxes(player.getBox(), koop.getBox()) == "right") {
+        player.dies();
+      } else if (directionFromBoxes(player.getBox(), koop.getBox()) == "left") {
+        player.dies();
+      } else if (directionFromBoxes(player.getBox(), koop.getBox()) == "top") {
+        player.dies();
+      } else if (directionFromBoxes(player.getBox(), koop.getBox()) == "bottom") {
+        score.addPoints(100);
+        koopas.remove(i);
+        player.yspeed = -2;
+      }
+    }
+  }
+
+  //Checks for collision between Mario and pipes
+  for (int i=0; i<pipes.size(); i++) {
+    Pipe pi = pipes.get(i);
+    if (boxCollision(player.getBox(), pi.getBox())) {
+      if (directionFromBoxes(player.getBox(), pi.getBox()) == "left") {
+        player.xspeed = 0;
+        
+      } else if (directionFromBoxes(player.getBox(), pi.getBox()) == "left") {
+        
       }
     }
   }
@@ -165,8 +206,6 @@ void draw() {
   player.display();
   player.update();
   player.move();
-  println(player.location_y);
-  
 }
 
 
@@ -181,14 +220,14 @@ void keyPressed()
   {
     left = true;
     right = false;
-  
+
     keys[0] = true;
   } 
   if (key == 'D' || key == 'd') 
   {
     left = false;
     right = true;
-    
+
     keys[1] = true;
   }
 
