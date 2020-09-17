@@ -48,7 +48,7 @@ class Mario {
       if (boxCollision(playerBox, c.getBox())) {
         Box b = c.getBox();
         String dir = directionFromAngle(degreesBetween(playerBox, b));
-        println(dir);
+        //println(dir);
         if (dir == "bottom") {
           player.y = b.y - player.h;
           can_jump = true;

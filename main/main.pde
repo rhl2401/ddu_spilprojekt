@@ -40,6 +40,7 @@ ArrayList<Pipe> pipes = new ArrayList<Pipe>();
 
 // NPCs
 ArrayList<Goomba> goombas = new ArrayList<Goomba>();
+ArrayList<Koopa> koopas = new ArrayList<Koopa>();
 
 Mario player;
 Flagpole flagpole;
@@ -56,6 +57,7 @@ void setup() {
   keys[2] = false; 
   mario_sprite = loadImage("mario.png");
   goomba_sprite = loadImage("goomba.png");
+  koopa_sprite = loadImage("koopa_sprite.png");
   player = new Mario(900, 800);
 
   initSound();
@@ -65,8 +67,11 @@ void setup() {
     main_theme.play();
   }
 
+  //Adding elements to stage
   goombas.add(new Goomba(1500, 850));
   goombas.add(new Goomba(1400, 850));
+  koopas.add(new Koopa(1600, 850));
+  koopas.add(new Koopa(1700, 850));
 
   flagpole = new Flagpole(2000);
 
@@ -90,14 +95,19 @@ void draw() {
   for (Pipe p : pipes) p.display();
   for (Goomba g : goombas) {
     g.movement();
-    g.display();
+    g.display_g();
+  }
+
+  for (Koopa k : koopas) {
+    k.movement();
+    k.display_k();
   }
 
   //Checks for collision between objects mario and goomba
   for (int i =0; i<goombas.size(); i++) {
     Goomba goomm = goombas.get(i);
     if (boxCollision(player.getBox(), goomm.getBox())) {
-      if (directionFromAngle(degreesBetween(goomm.getBox(), player.getBox())) == ("right" || "left")) {
+      if (directionFromBoxes(player.getBox(), goomm.getBox()) == "right") {
       }
     }
   }
@@ -127,8 +137,48 @@ void draw() {
     }
   }
 
+  //Checks for collision between Mario and flowers
+  
+  /*for (int i=0; i<=flowers.size(); i++) {
+   flowers f = flowers.get(i);
+   if(//collision) {
+         
+    }
+   }
+   }*/
+
+  //Checks for collision between koopas and pipe
+  for (int i=0; i<koopas.size(); i++) {
+    Koopa koo = koopas.get(i);
+    for (int j=0; j<pipes.size(); j++) {
+      Pipe pip = pipes.get(j);
+      if (directionFromAngle(degreesBetween(koo.getBox(), pip.getBox())) == "right") {
+        koo.enemy_vel *= -1;
+      } else if (directionFromAngle(degreesBetween(koo.getBox(), pip.getBox())) == "left") {
+        koo.enemy_vel *= -1;
+      }
+    }
+  }
+
+  //Checks for collision between Mario and koopas
+  for (int i =0; i<koopas.size(); i++) {
+    Koopa koop = koopas.get(i);
+    if (boxCollision(player.getBox(), koop.getBox())) {
+      if (directionFromBoxes(player.getBox(), koop.getBox()) == "right") {
+      }
+    }
+  }
 
 
+  Box box1 = new Box("fsdf", mouseX, mouseY, 100, 100);
+  Box box2 = new Box("fsdf", 200, 200, 100, 100);
+  if (boxCollision(box1, box2)) {
+    background(0, 255, 0);
+    println(degreesBetween(box1, box2));
+  }
+
+  rect(mouseX, mouseY, 100, 100);
+  rect(200, 200, 100, 100);
 
 
 
@@ -139,19 +189,12 @@ void draw() {
   player.update();
   player.move();
   //player.checkEdges();
+}
 
-  /*
-  Box box1 = new Box("fsdf",mouseX, mouseY,100,100);
-   Box box2 = new Box("fsdf",200,200,100,100);
-   if (boxCollision(box1,box2)) {
-   background(0,255,0);
-   
-   */
-}
-rect(mouseX, mouseY, 100, 100);
-rect(200, 200, 100, 100);
+
+
 //println(player.y);
-}
+
 
 void keyPressed() 
 {

@@ -6,8 +6,8 @@ class Enemy {
   float enemy_vel = 1;
   float w = unit;
   float h = unit;
-  boolean e_right = false;
-  boolean e_left = true;
+  boolean e_right = true;
+  boolean e_left = false;
 
   Enemy (float x_in, float y_in, float w_in, float h_in) {
 
@@ -30,7 +30,7 @@ class Goomba extends Enemy {
     super(x_in, y_in, unit, unit);
   }
 
-  void display() {
+  void display_g() {
     //image(goomba_sprite, e_location.x-world_x, e_location.y, w, h);
 
     if (e_right == true) {
@@ -49,7 +49,36 @@ class Goomba extends Enemy {
   }
 
   Box getBox() {
-    rect(e_location.x-world_x, e_location.y, w, h);
+    //rect(e_location.x-world_x, e_location.y, w, h);
     return new Box("goomba", e_location.x-world_x, e_location.y, w, h);
+  }
+}
+
+class Koopa extends Enemy {
+  Koopa(float x_in, float y_in) {
+    super(x_in, y_in, unit, unit);
+  }
+
+  void display_k() {
+    //image(goomba_sprite, e_location.x-world_x, e_location.y, w, h);
+
+   if (e_right == true) {
+      pushMatrix();
+      translate(e_location.x-world_x, e_location.y);
+      scale(-1, 1);
+      image(koopa_sprite, 0-w, 0, w, h);
+      popMatrix();
+    } else if (e_left == true) {
+      pushMatrix();
+      translate(e_location.x-world_x, e_location.y);
+      scale(1, 1);
+      image(koopa_sprite, 0, 0, w, h);
+      popMatrix();
+    }
+  }
+
+  Box getBox() {
+    //rect(e_location.x-world_x, e_location.y, w, h);
+    return new Box("koopa", e_location.x-world_x, e_location.y, w, h);
   }
 }
