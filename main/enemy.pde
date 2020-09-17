@@ -4,8 +4,8 @@ class Enemy {
   PVector e_location = new PVector();
   PVector dir;
   float enemy_vel = 1;
-  float w = 10;
-  float h = 10;
+  float w = unit;
+  float h = unit;
   boolean e_right = false;
   boolean e_left = true;
 
@@ -49,7 +49,7 @@ class Goomba extends Enemy {
   }
 
   Box getBox() {
-    //rect(e_location.x-world_x, e_location.y, w, h);
+    rect(e_location.x-world_x, e_location.y, w, h);
     return new Box("goomba", e_location.x-world_x, e_location.y, w, h);
   }
 }

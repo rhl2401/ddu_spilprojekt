@@ -30,6 +30,8 @@ ScoreBoard score = new ScoreBoard();
 PImage mario_sprite;
 // Goomba image
 PImage goomba_sprite;
+// Koopa image
+PImage koopa_sprite;
 
 // Stage objects 
 ArrayList<Stage> stage_objs = new ArrayList<Stage>();
@@ -89,13 +91,15 @@ void draw() {
     g.display();
   }
 
-  //Checks for collision between objects mario and goomba1
-  Goomba g = goombas.get(1);
-  if (boxCollision(player.getBox(), g.getBox())) {
-    fill(255, 0, 0);
-    rect(900, 450, 50, 50);
-    println(degreesBetween(player.getBox(), g.getBox()));
+  //Checks for collision between objects mario and goomba
+  for (int i =0; i<goombas.size(); i++) {
+    Goomba goomm = goombas.get(i);
+    if (boxCollision(player.getBox(), goomm.getBox())) {
+      if (directionFromAngle(degreesBetween(goomm.getBox(), player.getBox())) == ("right" || "left")) {
+      }
+    }
   }
+
 
   //Chekcks for collision between Mario and stage
   for (Stage s : stage_objs) {   
@@ -113,13 +117,16 @@ void draw() {
     Goomba goom = goombas.get(i);
     for (int j=0; j<pipes.size(); j++) {
       Pipe pip = pipes.get(j);
-      if (boxCollision(goom.getBox(), pip.getBox())) {
-        goom.enemy_vel *=-1;
-        goom.e_right = true;
-        goom.e_left = false;
+      if (directionFromAngle(degreesBetween(goom.getBox(), pip.getBox())) == "right") {
+        goom.enemy_vel *= -1;
+      } else if (directionFromAngle(degreesBetween(goom.getBox(), pip.getBox())) == "left") {
+        goom.enemy_vel *= -1;
       }
     }
   }
+
+
+
 
 
 
@@ -131,7 +138,17 @@ void draw() {
   player.move();
   //player.checkEdges();
 
-  println(player.y);
+  /*
+  Box box1 = new Box("fsdf",mouseX, mouseY,100,100);
+   Box box2 = new Box("fsdf",200,200,100,100);
+   if (boxCollision(box1,box2)) {
+   background(0,255,0);
+   
+   */
+}
+rect(mouseX, mouseY, 100, 100);
+rect(200, 200, 100, 100);
+//println(player.y);
 }
 
 void keyPressed() 
