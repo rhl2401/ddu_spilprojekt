@@ -36,3 +36,14 @@ float degreesBetween(Box b1, Box b2) {
   PVector water_straight = new PVector(1, 0); 
   return degrees(PVector.angleBetween(water_straight, vec_between));
 }
+
+
+// Function to return a direction from an angle
+String directionFromAngle(float angle) {
+  String direction = "";
+  if (angle > 315 && angle <= 45) direction = "right";
+  if (angle > 45 && angle <= 135) direction = "bottom";
+  if (angle > 135 && angle <= 225) direction = "left";
+  if (angle > 225 && angle <= 315) direction = "top";
+  return direction;
+}
