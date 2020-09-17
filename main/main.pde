@@ -174,7 +174,7 @@ void draw() {
   Box box2 = new Box("fsdf", 200, 200, 100, 100);
   if (boxCollision(box1, box2)) {
     background(0, 255, 0);
-    println(degreesBetween(box1, box2));
+    println(directionFromBoxes(box1, box2));
   }
 
   rect(mouseX, mouseY, 100, 100);

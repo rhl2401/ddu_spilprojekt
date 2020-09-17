@@ -48,7 +48,7 @@ class Mario {
       if (boxCollision(playerBox, c.getBox())) {
         Box b = c.getBox();
         String dir = directionFromBoxes(playerBox, b);
-        println(dir);
+        //println(dir);
         if (dir == "bottom") {
           player.y = b.y - player.h;
           yspeed = 0;
