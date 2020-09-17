@@ -39,10 +39,27 @@ class Mario {
         g = 0.4;
       }
     }
+    
+    
+    // Mario collision with cubes
+    Box playerBox = player.getBox();
+    for (int i=0; i<cubes.size(); i++) {
+      Cube c = cubes.get(i);
+      if (boxCollision(playerBox, c.getBox())) {
+        Box b = c.getBox();
+        String dir = directionFromBoxes(playerBox, b);
+        println(dir);
+        if (dir == "bottom") {
+          player.y = b.y - player.h;
+          yspeed = 0;
+          can_jump = true;
+        } //Other angles
+      }
+    }
   }
 
-  void display() 
-  {
+
+  void display() {
     if (right == true) {
       pushMatrix();
       translate(player.x, player.y);
@@ -59,16 +76,6 @@ class Mario {
     imageMode(CORNER);
   }
 
-  /*void jump() { 
-    if (can_jump) {
-      {
-        player.yspeed = -15;
-        can_jump = false;
-        keys[2] = true;
-        playSound("jump");
-      }
-    }
-  }*/
 
   void move() {
     if (canMove) {
@@ -87,20 +94,14 @@ class Mario {
           player.x -= player_move_speed;
         }
       }
-      
-      if (keys[2] && can_jump) 
-      {
-        player.jump();
-      }
     }
 
-    
     // Mario hits flagpole, stop and fix position for 1 sek
     if (boxCollision(player.getBox(), flagpole.getBox()) && !hitFlagpole) {
       canMove = false;
       hitFlagpole = true;
       flagTimer = millis();
-      main_theme.stop();
+      if (soundOn) main_theme.stop();
     }
     
     // Mario is fixed on flagpole. Play sound and slide downwards
@@ -112,7 +113,7 @@ class Mario {
       }
     }
     
-    // Mario has slidden down the pole, play cource_clear and run away!
+    // Mario has slid down the pole, play cource_clear and run away!
     if (y > unit*16-5 && hitFlagpole && millis()-flagTimer > 2000) {
       if (!playedComplete) {
         playSound("stage_complete_classic");
@@ -125,8 +126,8 @@ class Mario {
     }
   }
 
-  void checkEdges() {
 
+  void checkEdges() {
     if (y >= 900-h) {
       y = 900-h;
       yspeed *=0;

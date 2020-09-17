@@ -25,9 +25,9 @@ void playSound(String name, float vol) {
 
 void initSound() {
   if (soundOn) {
-    soundFiles.add(new SoundFile(this, "overworld.mp3"));
+    soundFiles.add(new SoundFile(this, "overworld.wav"));
     soundFiles.add(new SoundFile(this, "nsmb_course_clear.wav"));
-    soundFiles.add(new SoundFile(this, "course_clear_classic.mp3"));
+    soundFiles.add(new SoundFile(this, "course_clear_classic.wav"));
     soundFiles.add(new SoundFile(this, "nsmb_coin.wav"));
     soundFiles.add(new SoundFile(this, "nsmb_fireball.wav"));
     soundFiles.add(new SoundFile(this, "nsmb_flagpole.wav"));

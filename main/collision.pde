@@ -12,27 +12,42 @@ class Box {
   }  
 }
 
-boolean boxCollision(Box b1, Box b2) {
-    if ((b1.x + b1.w > b2.x && 
-       b1.x + b1.w < b2.x + b2.w && 
-       b1.y + b1.h > b2.y && 
-       b1.y + b1.h < b2.y + b2.h) ||
-       (b2.x + b2.w > b1.x && 
-       b2.x + b2.w < b1.x + b1.w && 
-       b2.y + b2.h > b1.y && 
-       b2.y + b2.h < b1.y + b1.h)) {
-     return true; 
-   } else {
-     return false;
-   }
+
+
+boolean valueInRange(float val, float min, float max) {
+  return (val >= min) && (val <= max);
+}
+
+
+boolean boxCollision(Box A, Box B) {
+  boolean xOverlap = valueInRange(A.x, B.x, B.x+B.w) || valueInRange(B.x, A.x, A.x + A.w);
+  boolean yOverlap = valueInRange(A.y, B.y, B.y+B.h) || valueInRange(B.y, A.y, A.y+A.h);
+  return xOverlap && yOverlap;
 }
 
 
 
-float degreesBetween(Box b1, Box b2) {
-  PVector b1_vec = new PVector(b1.x+b1.w/2, b1.y+b1.h/2);
-  PVector b2_vec = new PVector(b2.x+b2.w/2, b2.y+b2.h/2);
+float degreesBetween(Box A, Box B) {
+  PVector b1_vec = new PVector(A.x+A.w/2, A.y+A.h/2);
+  PVector b2_vec = new PVector(B.x+B.w/2, B.y+B.h/2);
   PVector vec_between = b2_vec.sub(b1_vec);
   PVector water_straight = new PVector(1, 0); 
   return degrees(PVector.angleBetween(water_straight, vec_between));
+}
+
+
+// Function to return a direction from an angle
+String directionFromAngle(float angle) {
+  String direction = "";
+  if (angle > 315 && angle <= 45) direction = "right";
+  if (angle > 45 && angle <= 135) direction = "bottom";
+  if (angle > 135 && angle <= 225) direction = "left";
+  if (angle > 225 && angle <= 315) direction = "top";
+  return direction;
+}
+
+
+// Function to merge the two function above
+String directionFromBoxes(Box A, Box B) {
+  return directionFromAngle(degreesBetween(A, B));
 }
