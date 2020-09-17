@@ -18,6 +18,7 @@ class Mario {
   boolean playedFlagpoleSlide = false;
   boolean playedComplete = false;
   int flagTimer;
+  float flag_y, flag_y_speed;
   
   Mario(float x, float y) {
     location_x = x;
@@ -123,15 +124,19 @@ class Mario {
     
     // Mario is fixed on flagpole. Play sound and slide downwards
     if (millis()-flagTimer > 1000 && y < unit*16 && hitFlagpole) {
-      y += 5;
+      if (y<800) println(y);
+      float new_y_pos = flag_y + flag_y_speed * (millis() - flagTimer - 1100); 
+      y = (new_y_pos > 0) ? new_y_pos : y;
       if (!playedFlagpoleSlide) { 
         playSound("flagpole"); 
         playedFlagpoleSlide = true;
+        flag_y = y;
+        flag_y_speed = (unit*16 - y) / 1100;
       }
     }
     
     // Mario has slid down the pole, play cource_clear and run away!
-    if (y > unit*16-5 && hitFlagpole && millis()-flagTimer > 2000) {
+    if (y > unit*16-5 && hitFlagpole && millis()-flagTimer > 2100) {
       if (!playedComplete) {
         playSound("stage_complete_classic");
         playedComplete = true;
