@@ -94,7 +94,8 @@ class Pipe {
   }
 
   Box getBox() {
-    return new Box("pipe", x-world_x, y_coord, unit*2, unit*3);
+    
+    return new Box("pipe", x-world_x, y_coord-unit, unit*2, unit*3);
   }
 }
 

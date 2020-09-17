@@ -28,8 +28,10 @@ ScoreBoard score = new ScoreBoard();
 
 // Mario image
 PImage mario_sprite;
-// Goomba imgage
+// Goomba image
 PImage goomba_sprite;
+// Koopa image
+PImage koopa_sprite;
 
 // Stage objects 
 ArrayList<Stage> stage_objs = new ArrayList<Stage>();
@@ -38,6 +40,7 @@ ArrayList<Pipe> pipes = new ArrayList<Pipe>();
 
 // NPCs
 ArrayList<Goomba> goombas = new ArrayList<Goomba>();
+ArrayList<Koopa> koopas = new ArrayList<Koopa>();
 
 Mario player;
 Flagpole flagpole;
@@ -54,6 +57,7 @@ void setup() {
   keys[2] = false; 
   mario_sprite = loadImage("mario.png");
   goomba_sprite = loadImage("goomba.png");
+  koopa_sprite = loadImage("koopa_sprite.png");
   player = new Mario(900, 800);
 
   initSound();
@@ -63,14 +67,16 @@ void setup() {
     main_theme.play();
   }
 
-  goombas.add(new Goomba(900, 800));
-  goombas.add(new Goomba(1000, 800));
+  //Adding elements to stage
+  goombas.add(new Goomba(1500, 850));
+  goombas.add(new Goomba(1400, 850));
+  koopas.add(new Koopa(1600, 850));
+  koopas.add(new Koopa(1700, 850));
 
   flagpole = new Flagpole(2000);
 
   generateStage();
 }
-
 
 void draw() {
 
@@ -88,40 +94,85 @@ void draw() {
   for (Pipe p : pipes) p.display();
   for (Goomba g : goombas) {
     g.movement();
-    g.display();
+    g.display_g();
   }
 
-  //Checks for collision between objects mario and goomba1
-  Goomba g = goombas.get(1);
-  if (boxCollision(player.getBox(), g.getBox())) {
-    fill(255, 0, 0);
-    rect(900, 450, 50, 50);
-    println(degreesBetween(player.getBox(), g.getBox()));
+  for (Koopa k : koopas) {
+    k.movement();
+    k.display_k();
+  }
+
+  //Checks for collision between objects mario and goomba
+  for (int i =0; i<goombas.size(); i++) {
+    Goomba goomm = goombas.get(i);
+    if (boxCollision(player.getBox(), goomm.getBox())) {
+      if (directionFromBoxes(player.getBox(), goomm.getBox()) == "right") {
+      }
+    }
   }
 
   //Chekcks for collision between Mario and stage
   for (Stage s : stage_objs) {   
     if (boxCollision(player.getBox(), s.getBox())) {
-      fill(0, 255, 0);
-      rect(900, 500, 50, 50);
+      boxCollision(player.getBox(), s.getBox());
       player.yspeed = 0;
       player.y = unit*16;
       can_jump = true;
     }
   }
 
+  //Checks for collision between goombas and pipe
+  for (int i=0; i<goombas.size(); i++) {
+    Goomba goom = goombas.get(i);
+    for (int j=0; j<pipes.size(); j++) {
+      Pipe pip = pipes.get(j);
+      if (boxCollision(goom.getBox(), pip.getBox())) {
+        if (directionFromBoxes(goom.getBox(), pip.getBox()) == "right") {
+          goom.enemy_vel *= -1;
+        } else if (directionFromBoxes(goom.getBox(), pip.getBox()) == "left") {
+          goom.enemy_vel *= -1;
+        }
+      }
+    }
+  }
 
+  //Checks for collision between koopas and pipe
+  for (int i=0; i<koopas.size(); i++) {
+    Koopa koo = koopas.get(i);
+    for (int j=0; j<pipes.size(); j++) {
+      Pipe pip = pipes.get(j);
+      if (boxCollision(koo.getBox(), pip.getBox())) {
+        if (directionFromBoxes(koo.getBox(), pip.getBox()) == "right") {
+          koo.enemy_vel *= -1;
+        } else if (directionFromBoxes(koo.getBox(), pip.getBox()) == "left") {
+          koo.enemy_vel *= -1;
+        }
+      }
+    }
+  }
 
+  //Checks for collision between Mario and koopas
+  for (int i =0; i<koopas.size(); i++) {
+    Koopa koop = koopas.get(i);
+    if (boxCollision(player.getBox(), koop.getBox())) {
+      if (directionFromBoxes(player.getBox(), koop.getBox()) == "right") {
+      }
+    }
+  }
 
   flagpole.display();
   //player attributes
   player.display();
   player.update();
   player.move();
-  //player.checkEdges();
-
-  println(player.y);
+  println(player.location_y);
+  
 }
+
+
+
+
+
 
 void keyPressed() 
 {
@@ -130,23 +181,20 @@ void keyPressed()
   {
     left = true;
     right = false;
-    //player.move();
+  
     keys[0] = true;
   } 
   if (key == 'D' || key == 'd') 
   {
     left = false;
     right = true;
-    //player.move();
+    
     keys[1] = true;
   }
 
-  if ((key == 'w' || key == 'W') && can_jump) 
+  if (key == 'w' || key == 'W') 
   {
-    player.yspeed = -jump_speed;
-    can_jump = false;
     keys[2] = true;
-    playSound("jump");
   }
 }
 

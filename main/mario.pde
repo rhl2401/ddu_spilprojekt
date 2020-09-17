@@ -73,9 +73,18 @@ class Mario {
       image(mario_sprite, 0-w, 0, 50, 100);
       popMatrix();
     }
-    imageMode(CORNER);
   }
 
+  void jump() { 
+    if (can_jump) {
+      {
+        player.yspeed = -15;
+        can_jump = false;
+        keys[2] = true;
+        playSound("jump");
+      }
+    }
+  }
 
   void move() {
     if (canMove) {
@@ -93,6 +102,14 @@ class Mario {
         } else {
           player.x -= player_move_speed;
         }
+      }
+      
+      if (keys[2] && can_jump)
+      {
+        player.y -= 1;
+        player.yspeed = -jump_speed;
+        can_jump = false;
+        playSound("jump");
       }
     }
 
