@@ -37,7 +37,7 @@ class Cube {
   }
 
   Box getBox() {
-    return new Box("cube", x-world_x, y, unit, unit);
+    return new Box("cube", x-world_x-2, y-2, unit+4, unit+4);
   }
 }
 
@@ -68,6 +68,7 @@ class Pipe {
   Pipe (float x_in, float y_in, boolean pipeHasFlower) {
     x = x_in; 
     y = y_in; 
+    y_coord = y;
     img = loadImage("warp_pipe.png");
     hasFlower = pipeHasFlower;
 

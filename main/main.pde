@@ -57,9 +57,11 @@ void setup() {
   player = new Mario(900, 800);
 
   initSound();
-  main_theme = soundFiles.get(0);
-  main_theme.amp(.3);
-  main_theme.play();
+  if (soundOn) {
+    main_theme = soundFiles.get(0);
+    main_theme.amp(.3);
+    main_theme.play();
+  }
 
   goombas.add(new Goomba(900, 800));
   goombas.add(new Goomba(1000, 800));
