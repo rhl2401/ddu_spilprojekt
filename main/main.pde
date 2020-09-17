@@ -165,7 +165,7 @@ void draw() {
   player.display();
   player.update();
   player.move();
-  println(player.location_y);
+  //println(player.location_y);
   
 }
 
