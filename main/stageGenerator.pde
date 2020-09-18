@@ -11,7 +11,7 @@ void stageGenerator(int stage_width) {
       if (i == 0) {
         current_level = int(random(15.9, 18));
       } else {
-        current_level = int(random(last_level-3.1, 18));
+        current_level = int(random(last_level-2.1, 18));
       }
       boolean hasCoins = random(1) > .4;
       generateCubes(start_x+i*unit, unit*current_level, current_count, hasCoins);
@@ -24,8 +24,8 @@ void stageGenerator(int stage_width) {
   
   // Quick fix for making it possible to hit top of flagpole
   generateCubes(start_x+stage_width*unit+unit, unit*15, 4, true);
-  generateCubes(start_x+stage_width*unit+unit*4, unit*13, 3);
-  generateCubes(start_x+stage_width*unit+unit*7, unit*11, 2, true);
-  generateCubes(start_x+stage_width+unit+unit*9, unit*10, 3);
-  flagpole = new Flagpole(start_x+stage_width*unit+unit*11);
+  generateCubes(start_x+stage_width*unit+unit*6, unit*13, 3);
+  generateCubes(start_x+stage_width*unit+unit*10, unit*11, 2, true);
+  generateCubes(start_x+stage_width+unit+unit*14, unit*10, 3);
+  flagpole = new Flagpole(start_x+stage_width*unit+unit*14);
 }
