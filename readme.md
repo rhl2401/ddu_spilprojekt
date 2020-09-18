@@ -13,6 +13,8 @@ Alle disse elementer kan integreres i et spil inspireret af Super Mario Bros.
  3. Oscillation bruges, når Mario kaster ildkugler.
  4. Partikelsystem bruges når man vinder banen og der springer konfetti rundt. 
 
+> **"Pizza tonight!"**
+
 GitHub er blevet brugt undervejs til at holde styr på projektet. Der laves issues for at holde styr på, hvad der skal laves af funktioner i programmet, der er brugt et projekt som et kanban-board til at holde styr på alle tingene samlet og sidst er der samarbejdet i koden på det kraftigste ved at lave branches, der muliggør at begge udviklere kan arbejde parallelt med hinanden og lave en merge til master, når noget er færdigt. 
 
 > **"Wa-hoo"**
