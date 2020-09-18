@@ -86,7 +86,7 @@ void setup() {
   goombas.add(new Goomba(1400, 850));
   koopas.add(new Koopa(1600, 850));
   koopas.add(new Koopa(1700, 850));
-  flagpole = new Flagpole(2000);
+
   generateStage();
 }
 

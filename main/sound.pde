@@ -35,7 +35,7 @@ void initSound() {
     soundFiles.add(new SoundFile(this, "nsmb_power-up.wav"));
     soundFiles.add(new SoundFile(this, "nsmb_jump.wav"));
     soundFiles.add(new SoundFile(this, "nsmb_death.wav"));
-    soundFiles.add(new SoundFile(this, "nsmb_gameover.wav"));
+    soundFiles.add(new SoundFile(this, "nsmb_game_over.wav"));
     soundFiles.add(new SoundFile(this, "nsmb_hurry_up.wav"));
   
     soundNames.add("overworld");
