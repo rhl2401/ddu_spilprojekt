@@ -4,6 +4,7 @@ boolean max_right = false;
 boolean can_jump;/* = true;*/
 boolean right = false;
 boolean left = false; 
+boolean conf = false;
 
 class Mario {
   float location_x; 
@@ -12,14 +13,18 @@ class Mario {
   float g = 0.8;
   float yspeed, xspeed;
   float w = unit;
-  float h = unit*2;
+  float h = unit*1.8;
   boolean canMove = true;
   boolean hitFlagpole = false;
+  boolean flagpoleSpecial = false;
   boolean playedFlagpoleSlide = false;
   boolean playedComplete = false;
   boolean isAlive = true;
   int flagTimer;
 
+  float flag_y, flag_y_speed;
+  float cube_break_angle = 15;
+  
   Mario(float x, float y) {
     location_x = x;
     location_y = y;
@@ -41,6 +46,16 @@ class Mario {
       }
     }
 
+    // Mario collision with coins
+    for (int i=0; i<coins.size(); i++) {
+      Coin c = coins.get(i);
+      if (boxCollision(player.getBox(), c.getBox())) {
+        coins.remove(i);
+        score.addPoints(10);
+        score.coins++;
+        playSound("coin");
+      }
+    }
 
     // Mario collision with cubes
     Box playerBox = player.getBox();
@@ -54,7 +69,18 @@ class Mario {
           player.y = b.y - player.h;
           yspeed = 0;
           can_jump = true;
-        } //Other angles
+        } else if (dir == "top") {
+          yspeed = 2;  // Do not jump through
+          // Narrow angle of break. Do not break if not from straight above
+          if (degreesBetween(playerBox, b) > 270-cube_break_angle && degreesBetween(playerBox, b) < 270 + cube_break_angle) {
+            cubes.remove(i);
+            score.addPoints(5);
+          }
+        } else if (dir == "right") {
+          player.x = b.x - player.w;
+        } else if (dir == "left") {
+          player.x = b.x + b.w;
+        }
       }
     }
   }
@@ -65,13 +91,13 @@ class Mario {
       pushMatrix();
       translate(player.x, player.y);
       scale(1, 1);
-      image(mario_sprite, 0, 0, 50, 100);
+      image(mario_sprite, 0, 0, w, h);
       popMatrix();
     } else if (left == true) {
       pushMatrix();
       translate(player.x, player.y);
       scale(-1, 1);
-      image(mario_sprite, 0-w, 0, 50, 100);
+      image(mario_sprite, 0-w, 0, w, h);
       popMatrix();
     }
   }
@@ -114,9 +140,17 @@ class Mario {
       }
     }
 
+    
+    // Check if Mario hits top of the flagpole
+    if (boxCollision(player.getBox(), flagpole.getTopBox())) {
+      if (!flagpoleSpecial) score.addPoints(10000);
+      flagpoleSpecial = true;
+    }
+
     // Mario hits flagpole, stop and fix position for 1 sek
     if (boxCollision(player.getBox(), flagpole.getBox()) && !hitFlagpole) {
       canMove = false;
+      conf = true;
       hitFlagpole = true;
       flagTimer = millis();
       if (soundOn) main_theme.stop();
@@ -124,17 +158,25 @@ class Mario {
 
     // Mario is fixed on flagpole. Play sound and slide downwards
     if (millis()-flagTimer > 1000 && y < unit*16 && hitFlagpole) {
-      y += 5;
+      if (y<800) println(y);
+      float new_y_pos = flag_y + flag_y_speed * (millis() - flagTimer - 1100); 
+      y = (new_y_pos > 0) ? new_y_pos : y;
       if (!playedFlagpoleSlide) { 
-        playSound("flagpole"); 
+        playSound("flagpole");
         playedFlagpoleSlide = true;
+        flag_y = y;
+        flag_y_speed = (unit*16 - y) / 1100;
       }
     }
 
     // Mario has slid down the pole, play cource_clear and run away!
-    if (y > unit*16-5 && hitFlagpole && millis()-flagTimer > 2000) {
+    if (y > unit*16-5 && hitFlagpole && millis()-flagTimer > 2100) {
       if (!playedComplete) {
-        playSound("stage_complete_classic");
+        if (flagpoleSpecial) {
+          playSound("stage_complete");
+        } else {
+          playSound("stage_complete_classic");
+        }
         playedComplete = true;
       }
 

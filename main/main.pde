@@ -22,10 +22,12 @@ float unit = 50;
 boolean started = false;
 float stand = 0;
 
+float total_time = 100;
+
 boolean[] keys;
 
 // Score
-ScoreBoard score = new ScoreBoard();
+ScoreBoard score;
 
 // Mario image
 PImage mario_sprite;
@@ -40,6 +42,11 @@ PImage koopa_shell_sprite;
 ArrayList<Stage> stage_objs = new ArrayList<Stage>();
 ArrayList<Cube> cubes = new ArrayList<Cube>();
 ArrayList<Pipe> pipes = new ArrayList<Pipe>();
+ArrayList<Coin> coins = new ArrayList<Coin>();
+
+//Confetti
+ArrayList <Confetti> confetti = new ArrayList<Confetti>();
+ArrayList <Confetti> particle;
 
 // NPCs
 ArrayList<Goomba> goombas = new ArrayList<Goomba>();
@@ -54,7 +61,7 @@ Flagpole flagpole;
 void setup() {
   size(1900, 1000);
   frameRate(60);
-
+  particle = new ArrayList<Confetti>();
   keys = new boolean[3];
   keys[0] = false;
   keys[1] = false;
@@ -64,6 +71,8 @@ void setup() {
   koopa_sprite = loadImage("koopa_sprite.png");
   koopa_shell_sprite = loadImage("koopa_shell_sprite.png"); 
   player = new Mario(900, 800);
+  
+  score = new ScoreBoard();
 
   initSound();
   if (soundOn) {
@@ -85,22 +94,34 @@ void setup() {
 
 void draw() {
 
+
+
   clear();   
   background(48, 220, 255);
   if (started == false) {
-    image(mario_sprite, 900, 800, 50, 100);
+    image(mario_sprite, 900, 800, player.w, player.h);
   }
   // Display scoreboard 
   score.display();
+
+  //Display confetti
+  confetti.add(new Confetti(flagpole.x-100, flagpole.h-100));
+  for (int i = 0; i< confetti.size(); i++) {
+    Confetti c = confetti.get(i);
+    c.display();
+  }
+
+  println(confetti.size());
 
   // Loop through all objects in arraylists and display them
   for (Stage s : stage_objs) s.display();
   for (Cube c : cubes) c.display();
   for (Pipe p : pipes) p.display();
+  for (Coin c : coins) c.display();
 
   //initializing goombas
   for (Goomba g : goombas) {
-    g.movement();
+    if (player.canMove) g.movement();
     g.display_g();
     g.display_g_flat();
     g.goomba_animation();
@@ -108,7 +129,7 @@ void draw() {
 
   //initializing koopas
   for (Koopa k : koopas) {
-    k.movement();
+    if (player.canMove) k.movement();
     k.display_k();
     k.display_k_flat();
     k.koopa_animation();
@@ -141,7 +162,7 @@ void draw() {
     if (boxCollision(player.getBox(), s.getBox())) {
       boxCollision(player.getBox(), s.getBox());
       player.yspeed = 0;
-      player.y = unit*16;
+      player.y = unit*18-player.h;
       can_jump = true;
     }
   }
@@ -211,6 +232,7 @@ void draw() {
     }
   }
 
+
   //Checks for collision between Mario and pipes
   for (int i=0; i<pipes.size(); i++) {
     Pipe pi = pipes.get(i);
@@ -223,10 +245,28 @@ void draw() {
       }
     } else {
       player_move_speed = 8;
+
+  if (conf) {
+    particle.add(new Confetti(0, 0));
+    for (int i = 0; i < particle.size(); i++) {
+      Confetti p = particle.get(i);
+
+      if (p.lifespan < 0) {
+        p.isAlive = false;
+      }
+      if (!p.isAlive) {
+        particle.remove(i);
+      }
+
+      p.update();
+      p.display();
+      println(particle.size());
+
     }
   }
 
   flagpole.display();
+  
   //player attributes
   if (player.isAlive) {
     player.display();
@@ -249,6 +289,7 @@ void keyPressed()
   {
     left = false;
     right = true;
+
     keys[1] = true;
   }
 
