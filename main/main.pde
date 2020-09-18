@@ -107,19 +107,26 @@ void draw() {
   for (int i =0; i<goombas.size(); i++) {
     Goomba goomm = goombas.get(i);
     if (boxCollision(player.getBox(), goomm.getBox())) {
-      if (directionFromBoxes(player.getBox(), goomm.getBox()) == "right") {
+      if ((directionFromBoxes(player.getBox(), goomm.getBox()) == "right") && goomm.e_isAlive) {
         player.dies();
-      } else if (directionFromBoxes(player.getBox(), goomm.getBox()) == "left") {
+      } else if ((directionFromBoxes(player.getBox(), goomm.getBox()) == "left") && goomm.e_isAlive) {
         player.dies();
-      } else if (directionFromBoxes(player.getBox(), goomm.getBox()) == "top") {
+      } else if ((directionFromBoxes(player.getBox(), goomm.getBox()) == "top") && goomm.e_isAlive) {
         player.dies();
       } else if (directionFromBoxes(player.getBox(), goomm.getBox()) == "bottom") {
         score.addPoints(100);
-        goombas.remove(i);
+        goomm.e_isAlive = false;
+        println(goomm.e_isAlive);
+        goomm.goomba_animation();
         player.yspeed = -2;
+
+        if (goomm.animation_complete)
+          goombas.remove(i);
       }
     }
   }
+
+
 
   //Chekcks for collision between Mario and stage
   for (Stage s : stage_objs) {   
@@ -193,13 +200,16 @@ void draw() {
     Pipe pi = pipes.get(i);
     if (boxCollision(player.getBox(), pi.getBox())) {
       if (directionFromBoxes(player.getBox(), pi.getBox()) == "left") {
-        player.xspeed = 0;
-        
-      } else if (directionFromBoxes(player.getBox(), pi.getBox()) == "left") {
-        
+      } else if (directionFromBoxes(player.getBox(), pi.getBox()) == "right") {
+      } else if (directionFromBoxes(player.getBox(), pi.getBox()) == "bottom") {
+        player.yspeed = 0;
+        can_jump = true;
       }
+    } else {
+      player_move_speed = 8;
     }
   }
+
 
   flagpole.display();
   //player attributes
@@ -227,7 +237,6 @@ void keyPressed()
   {
     left = false;
     right = true;
-
     keys[1] = true;
   }
 

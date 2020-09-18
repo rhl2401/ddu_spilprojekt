@@ -8,6 +8,10 @@ class Enemy {
   float h = unit;
   boolean e_right;
   boolean e_left = true;
+  boolean e_isAlive = true;
+  boolean animation_complete = false;
+  
+  
 
   Enemy (float x_in, float y_in, float w_in, float h_in) {
 
@@ -18,14 +22,16 @@ class Enemy {
   }
 
   void movement() {
-    e_location = new PVector(e_location.x, e_location.y);
-    dir = new PVector(-enemy_vel, 0);
-    e_location.add(dir);
+    if (e_isAlive) {
+      e_location = new PVector(e_location.x, e_location.y);
+      dir = new PVector(-enemy_vel, 0);
+      e_location.add(dir);
+    }
   }
 }
 
 class Goomba extends Enemy {
-
+  int animation_time = millis();
   Goomba(float x_in, float y_in) {
     super(x_in, y_in, unit, unit);
   }
@@ -33,7 +39,7 @@ class Goomba extends Enemy {
   void display_g() {
     //image(goomba_sprite, e_location.x-world_x, e_location.y, w, h);
 
-    if (e_right == true) {
+    if (e_right == true && e_isAlive) {
       pushMatrix();
       translate(e_location.x-world_x, e_location.y);
       scale(-1, 1);
@@ -45,6 +51,33 @@ class Goomba extends Enemy {
       scale(1, 1);
       image(goomba_sprite, 0, 0, w, h);
       popMatrix();
+    }
+  }
+
+  void display_g_flat() {
+    //image(goomba_sprite, e_location.x-world_x, e_location.y, w, h);
+
+    if (e_right == true && !e_isAlive) {
+      pushMatrix();
+      translate(e_location.x-world_x, e_location.y);
+      scale(-1, 1);
+      image(goomba_sprite, 0-w, 0-h/2, w, h/2);
+      popMatrix();
+    } else if (e_left == true && !e_isAlive) {
+      pushMatrix();
+      translate(e_location.x-world_x, e_location.y);
+      scale(1, 1);
+      image(goomba_sprite, 0, 0-h/2, w, h/2);
+      popMatrix();
+    }
+  }
+
+  void goomba_animation() {
+    if (!e_isAlive) { 
+      display_g_flat();
+      if (millis() - animation_time > 2000) {
+        animation_complete = true;
+      }
     }
   }
 
@@ -62,7 +95,7 @@ class Koopa extends Enemy {
   void display_k() {
     //image(goomba_sprite, e_location.x-world_x, e_location.y, w, h);
 
-   if (e_right == true) {
+    if (e_right == true) {
       pushMatrix();
       translate(e_location.x-world_x, e_location.y);
       scale(-1, 1);
