@@ -42,6 +42,7 @@ ArrayList<Pipe> pipes = new ArrayList<Pipe>();
 // NPCs
 ArrayList<Goomba> goombas = new ArrayList<Goomba>();
 ArrayList<Koopa> koopas = new ArrayList<Koopa>();
+ArrayList<Mario> marios = new ArrayList<Mario>();
 
 Mario player;
 Flagpole flagpole;
@@ -113,6 +114,7 @@ void draw() {
         player.dies();
       } else if ((directionFromBoxes(player.getBox(), goomm.getBox()) == "top") && goomm.e_isAlive) {
         player.dies();
+        
       } else if (directionFromBoxes(player.getBox(), goomm.getBox()) == "bottom") {
         score.addPoints(100);
         goomm.e_isAlive = false;
@@ -189,8 +191,13 @@ void draw() {
         player.dies();
       } else if (directionFromBoxes(player.getBox(), koop.getBox()) == "bottom") {
         score.addPoints(100);
-        koopas.remove(i);
         player.yspeed = -2;
+        koop.e_isAlive = false;
+        
+        if (!koop.e_isAlive) {
+        koopas.remove(i);
+        }
+        
       }
     }
   }
@@ -213,9 +220,12 @@ void draw() {
 
   flagpole.display();
   //player attributes
+  if (player.isAlive) {
   player.display();
   player.update();
   player.move();
+  
+  }
 }
 
 
