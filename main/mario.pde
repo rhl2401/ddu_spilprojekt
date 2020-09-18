@@ -15,6 +15,7 @@ class Mario {
   float h = unit*1.8;
   boolean canMove = true;
   boolean hitFlagpole = false;
+  boolean flagpoleSpecial = false;
   boolean playedFlagpoleSlide = false;
   boolean playedComplete = false;
   int flagTimer;
@@ -122,6 +123,13 @@ class Mario {
       }
     }
 
+    
+    // Check if Mario hits top of the flagpole
+    if (boxCollision(player.getBox(), flagpole.getTopBox())) {
+      if (!flagpoleSpecial) score.addPoints(10000);
+      flagpoleSpecial = true;
+    }
+
     // Mario hits flagpole, stop and fix position for 1 sek
     if (boxCollision(player.getBox(), flagpole.getBox()) && !hitFlagpole) {
       canMove = false;
@@ -136,7 +144,7 @@ class Mario {
       float new_y_pos = flag_y + flag_y_speed * (millis() - flagTimer - 1100); 
       y = (new_y_pos > 0) ? new_y_pos : y;
       if (!playedFlagpoleSlide) { 
-        playSound("flagpole"); 
+        playSound("flagpole");
         playedFlagpoleSlide = true;
         flag_y = y;
         flag_y_speed = (unit*16 - y) / 1100;
@@ -146,7 +154,11 @@ class Mario {
     // Mario has slid down the pole, play cource_clear and run away!
     if (y > unit*16-5 && hitFlagpole && millis()-flagTimer > 2100) {
       if (!playedComplete) {
-        playSound("stage_complete_classic");
+        if (flagpoleSpecial) {
+          playSound("stage_complete");
+        } else {
+          playSound("stage_complete_classic");
+        }
         playedComplete = true;
       }
       
