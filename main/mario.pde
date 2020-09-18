@@ -76,6 +76,10 @@ class Mario {
             cubes.remove(i);
             score.addPoints(5);
           }
+        } else if (dir == "right") {
+          player.x = b.x - player.w;
+        } else if (dir == "left") {
+          player.x = b.x + b.w;
         }
       }
     }
