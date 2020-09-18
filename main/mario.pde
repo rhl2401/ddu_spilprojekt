@@ -10,7 +10,7 @@ class Mario {
   float location_x; 
   float location_y;
   float x = 900, y=800;
-  float g = 0.5;
+  float g = 0.8;
   float yspeed, xspeed;
   float w = unit;
   float h = unit*1.8;
@@ -19,7 +19,9 @@ class Mario {
   boolean flagpoleSpecial = false;
   boolean playedFlagpoleSlide = false;
   boolean playedComplete = false;
+  boolean isAlive = true;
   int flagTimer;
+
   float flag_y, flag_y_speed;
   float cube_break_angle = 15;
   
@@ -38,13 +40,12 @@ class Mario {
       player.x += xspeed;
       player.yspeed += g;
       if (player.yspeed < 0) {
-        g = 0.6;
+        g = 0.8;
       } else {
-        g = 0.4;
+        g = 0.6;
       }
     }
-    
-    
+
     // Mario collision with coins
     for (int i=0; i<coins.size(); i++) {
       Coin c = coins.get(i);
@@ -55,8 +56,7 @@ class Mario {
         playSound("coin");
       }
     }
-    
-    
+
     // Mario collision with cubes
     Box playerBox = player.getBox();
     for (int i=0; i<cubes.size(); i++) {
@@ -64,7 +64,7 @@ class Mario {
       if (boxCollision(playerBox, c.getBox())) {
         Box b = c.getBox();
         String dir = directionFromBoxes(playerBox, b);
-        println(dir);
+        //println(dir);
         if (dir == "bottom") {
           player.y = b.y - player.h;
           yspeed = 0;
@@ -76,6 +76,10 @@ class Mario {
             cubes.remove(i);
             score.addPoints(5);
           }
+        } else if (dir == "right") {
+          player.x = b.x - player.w;
+        } else if (dir == "left") {
+          player.x = b.x + b.w;
         }
       }
     }
@@ -126,7 +130,7 @@ class Mario {
           player.x -= player_move_speed;
         }
       }
-      
+
       if (keys[2] && can_jump)
       {
         player.y -= 1;
@@ -151,7 +155,7 @@ class Mario {
       flagTimer = millis();
       if (soundOn) main_theme.stop();
     }
-    
+
     // Mario is fixed on flagpole. Play sound and slide downwards
     if (millis()-flagTimer > 1000 && y < unit*16 && hitFlagpole) {
       if (y<800) println(y);
@@ -164,7 +168,7 @@ class Mario {
         flag_y_speed = (unit*16 - y) / 1100;
       }
     }
-    
+
     // Mario has slid down the pole, play cource_clear and run away!
     if (y > unit*16-5 && hitFlagpole && millis()-flagTimer > 2100) {
       if (!playedComplete) {
@@ -175,20 +179,14 @@ class Mario {
         }
         playedComplete = true;
       }
-      
+
       if (millis()-flagTimer > 2300) {
         x += player_move_speed;
       }
     }
   }
-
-
-  void checkEdges() {
-    if (y >= 900-h) {
-      y = 900-h;
-      yspeed *=0;
-      can_jump = true;
-      
-    }
+  void dies() {
+    player.isAlive = false;
+    player.canMove = false;
   }
 }
