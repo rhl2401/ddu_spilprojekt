@@ -206,6 +206,44 @@ void draw() {
       }
     }
   }
+  
+  //Checks for collision between koopas and boxes
+  for (int i=0; i<koopas.size(); i++) {
+    Koopa kooo = koopas.get(i);
+    for (int j=0; j<cubes.size(); j++) {
+      Cube cu = cubes.get(j);
+      if (boxCollision(kooo.getBox(), cu.getBox())) {
+        if (directionFromBoxes(kooo.getBox(), cu.getBox()) == "right") {
+          kooo.e_right = false;
+          kooo.e_left = true;
+          kooo.enemy_vel *= -1;
+        } else if (directionFromBoxes(kooo.getBox(), cu.getBox()) == "left") {
+          kooo.e_right = true;
+          kooo.e_left = false;
+          kooo.enemy_vel *= -1;
+        }
+      }
+    }
+  }
+  
+  //Checks for collision between goombas and boxes
+  for (int i=0; i<goombas.size(); i++) {
+    Goomba gooom = goombas.get(i);
+    for (int j=0; j<cubes.size(); j++) {
+      Cube cub = cubes.get(j);
+      if (boxCollision(gooom.getBox(), cub.getBox())) {
+        if (directionFromBoxes(gooom.getBox(), cub.getBox()) == "right") {
+          gooom.e_right = false;
+          gooom.e_left = true;
+          gooom.enemy_vel *= -1;
+        } else if (directionFromBoxes(gooom.getBox(), cub.getBox()) == "left") {
+          gooom.e_right = true;
+          gooom.e_left = false;
+          gooom.enemy_vel *= -1;
+        }
+      }
+    }
+  }
 
   //Checks for collision between Mario and koopas
   for (int i=0; i<koopas.size(); i++) {
