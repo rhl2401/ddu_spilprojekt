@@ -112,3 +112,34 @@ void generateStage() {
 
   pipes.add(new Pipe(unit*23, unit*17, true));
 }
+
+class Confetti {
+  PVector speed = new PVector(0,0);
+  float startAngle = 0;
+  float angleVel = 0.23;
+  Confetti(float x_in, float y_in) {
+    x_in = flagpole.x;
+    y_in = flagpole.h;
+    
+  }
+  
+  void movement() {
+    
+    
+    
+  }
+  
+  void display() {
+    
+    pushMatrix();
+    translate(flagpole.x, flagpole.h);
+    color(random(0,255),random(0,255), random(0,255));
+    rect(0,0,10,5);
+    rotate(PI/4);
+    popMatrix();
+    
+    
+  }
+  
+  
+}

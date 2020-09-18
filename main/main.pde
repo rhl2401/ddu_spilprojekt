@@ -38,6 +38,9 @@ ArrayList<Stage> stage_objs = new ArrayList<Stage>();
 ArrayList<Cube> cubes = new ArrayList<Cube>();
 ArrayList<Pipe> pipes = new ArrayList<Pipe>();
 
+//Confetti
+ArrayList <Confetti> confetti = new ArrayList<Confetti>();
+
 // NPCs
 ArrayList<Goomba> goombas = new ArrayList<Goomba>();
 ArrayList<Koopa> koopas = new ArrayList<Koopa>();
@@ -79,6 +82,8 @@ void setup() {
 }
 
 void draw() {
+  
+  
 
   clear();   
   background(48, 220, 255);
@@ -87,6 +92,15 @@ void draw() {
   }
   // Display scoreboard 
   score.display();
+  
+  //Display confetti
+  confetti.add(new Confetti(flagpole.x-100, flagpole.h-100));
+  for (int i = 0; i< confetti.size(); i++) {
+    Confetti c = confetti.get(i);
+    c.display();
+  }
+  
+  println(confetti.size());
 
   // Loop through all objects in arraylists and display them
   for (Stage s : stage_objs) s.display();
