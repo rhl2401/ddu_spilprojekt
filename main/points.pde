@@ -1,8 +1,12 @@
 
 class ScoreBoard {
   int points = 0;
+  int coins = 0;
+  PImage coin;
 
-  ScoreBoard() {}
+  ScoreBoard() {
+    coin = loadImage("coin.png");
+  }
 
   void display() {
     textSize(28);

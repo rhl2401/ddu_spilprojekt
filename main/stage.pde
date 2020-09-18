@@ -42,13 +42,6 @@ class Cube {
 }
 
 
-void generateCubes(float x, float y, int count) {
-  for (int i=0; i<count; i++) {
-    cubes.add(new Cube(x+unit*i, y));
-  }
-}
-
-
 
 class Pipe {
   float x, y;
@@ -94,9 +87,53 @@ class Pipe {
   }
 
   Box getBox() {
-    
     return new Box("pipe", x-world_x, y_coord-unit, unit*2, unit*3);
   }
+}
+
+
+
+class Coin {
+  float x, y;
+  float w = unit*.8, h = unit*.8;
+  PImage coin;
+  
+  Coin(float x_in, float y_in) {
+    x = x_in; 
+    y = y_in; 
+    coin = loadImage("coin.png");
+  }
+  
+  void display() {
+    image(coin, x-world_x, y, w, h);
+  }
+  
+  Box getBox() {
+    return new Box("coin", x-world_x, y, w, h); 
+  }
+}
+
+
+
+
+
+void generateCubes(float x, float y, int count) {
+  generateCubes(x, y, count, false);
+}
+
+void generateCubes(float x, float y, int count, boolean withCoins) {
+  for (int i=0; i<count; i++) {
+    cubes.add(new Cube(x+unit*i, y));
+    if (withCoins) {
+      coins.add(new Coin(x+unit*i, y-unit));
+    }
+  }
+}
+
+void generateCoins(float x, float y, int count) {
+  for (int i=0; i<count; i++) {
+    coins.add(new Coin(x+unit*i, y));
+  } 
 }
 
 
@@ -105,10 +142,12 @@ void generateStage() {
   stage_objs.add(new Stage(0, unit*18, 2000, 100));
   stage_objs.add(new Stage(1900, unit*18, 2000, 100));
 
-  generateCubes(unit*18, unit*15, 4);
+  generateCubes(unit*18, unit*15, 4, true);
   generateCubes(unit*24, unit*13, 3);
-  generateCubes(unit*29, unit*11, 2);
+  generateCubes(unit*29, unit*11, 2, true);
   generateCubes(unit*35, unit*10, 3);
 
   pipes.add(new Pipe(unit*23, unit*17, true));
+  
+  coins.add(new Coin(unit*16, unit*16));
 }
