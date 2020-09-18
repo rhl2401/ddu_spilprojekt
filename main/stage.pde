@@ -139,18 +139,16 @@ void generateCoins(float x, float y, int count) {
 
 
 void generateStage() {
+  // Ground
   stage_objs.add(new Stage(0, unit*18, 2000, 100));
-  stage_objs.add(new Stage(1900, unit*18, 2000, 100));
+  stage_objs.add(new Stage(1900, unit*18, 2100, 100));
+  stage_objs.add(new Stage(3900, unit*18, 2000, 100));
 
-  /*generateCubes(unit*18, unit*15, 4, true);
-  generateCubes(unit*24, unit*13, 3);
-  generateCubes(unit*29, unit*11, 2, true);
-  generateCubes(unit*35, unit*10, 3);*/
-  stageGenerator(50);
+  // Generate stage automatically
+  stageGenerator(100);
 
+  // Add a pipe!
   pipes.add(new Pipe(unit*23, unit*17, true));
-  
-  coins.add(new Coin(unit*16, unit*16));
 }
 
 class Confetti {
