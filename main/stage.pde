@@ -114,32 +114,46 @@ void generateStage() {
 }
 
 class Confetti {
-  PVector speed = new PVector(0,0);
+  PVector speed = new PVector(0, 0);
+  PVector location;
+  PVector vel;
+  PVector acc; 
   float startAngle = 0;
   float angleVel = 0.23;
-  Confetti(float x_in, float y_in) {
-    x_in = flagpole.x;
-    y_in = flagpole.h;
+  float x, y;
+  float aVel = 0.1; 
+  float a;
+  color col;
+  boolean isAlive = true;
+  float lifespan = 255;
+
+  Confetti(float x, float y) {
+    location = new PVector(x, y);
+    vel = new PVector(random(-2, 2), random(-1, 1));
+    acc = new PVector(0, 1);
+    col = color(random(0, 255), random(0, 255), random(0, 255));
+  }
+
+
+  void update() {
+    vel.add(acc);
+    acc.limit(3);
+    vel.limit(10);
+    location.add(vel);
+    acc.mult(0);
+    lifespan -= 2;
     
   }
-  
-  void movement() {
-    
-    
-    
-  }
-  
+
   void display() {
-    
+    a += aVel;
     pushMatrix();
-    translate(flagpole.x, flagpole.h);
-    color(random(0,255),random(0,255), random(0,255));
-    rect(0,0,10,5);
-    rotate(PI/4);
+    rectMode(CENTER);
+    translate(location.x+flagpole.x-world_x+flagpole.w/1.3,flagpole.y+location.y);
+    rotate(a);
+    rect(0,0, 20,10);
+    fill(col);
+    stroke(0);
     popMatrix();
-    
-    
   }
-  
-  
 }

@@ -4,6 +4,7 @@ boolean max_right = false;
 boolean can_jump;/* = true;*/
 boolean right = false;
 boolean left = false; 
+boolean conf = false;
 
 class Mario {
   float location_x; 
@@ -125,6 +126,7 @@ class Mario {
     // Mario hits flagpole, stop and fix position for 1 sek
     if (boxCollision(player.getBox(), flagpole.getBox()) && !hitFlagpole) {
       canMove = false;
+      conf = true;
       hitFlagpole = true;
       flagTimer = millis();
       if (soundOn) main_theme.stop();
