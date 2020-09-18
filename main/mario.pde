@@ -50,6 +50,7 @@ class Mario {
       if (boxCollision(player.getBox(), c.getBox())) {
         coins.remove(i);
         score.addPoints(10);
+        score.coins++;
         playSound("coin");
       }
     }

@@ -12,6 +12,8 @@ class ScoreBoard {
     textSize(28);
     fill(255);
     text(nf(points, 8), 20, 40);
+    image(coin, 20, 60, 40, 40);
+    text(nf(coins, 3), 70, 90);
   }
 
   void addPoints (int count_points) {
