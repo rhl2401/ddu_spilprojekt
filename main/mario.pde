@@ -44,6 +44,18 @@ class Mario {
     }
     
     
+    // Mario collision with coins
+    for (int i=0; i<coins.size(); i++) {
+      Coin c = coins.get(i);
+      if (boxCollision(player.getBox(), c.getBox())) {
+        coins.remove(i);
+        score.addPoints(10);
+        score.coins++;
+        playSound("coin");
+      }
+    }
+    
+    
     // Mario collision with cubes
     Box playerBox = player.getBox();
     for (int i=0; i<cubes.size(); i++) {

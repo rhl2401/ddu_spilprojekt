@@ -1,13 +1,19 @@
 
 class ScoreBoard {
   int points = 0;
+  int coins = 0;
+  PImage coin;
 
-  ScoreBoard() {}
+  ScoreBoard() {
+    coin = loadImage("coin.png");
+  }
 
   void display() {
     textSize(28);
     fill(255);
     text(nf(points, 8), 20, 40);
+    image(coin, 20, 60, 40, 40);
+    text(nf(coins, 3), 70, 90);
   }
 
   void addPoints (int count_points) {

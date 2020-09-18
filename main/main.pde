@@ -24,7 +24,7 @@ float stand = 0;
 boolean[] keys;
 
 // Score
-ScoreBoard score = new ScoreBoard();
+ScoreBoard score;
 
 // Mario image
 PImage mario_sprite;
@@ -37,6 +37,7 @@ PImage koopa_sprite;
 ArrayList<Stage> stage_objs = new ArrayList<Stage>();
 ArrayList<Cube> cubes = new ArrayList<Cube>();
 ArrayList<Pipe> pipes = new ArrayList<Pipe>();
+ArrayList<Coin> coins = new ArrayList<Coin>();
 
 // NPCs
 ArrayList<Goomba> goombas = new ArrayList<Goomba>();
@@ -59,6 +60,8 @@ void setup() {
   goomba_sprite = loadImage("goomba.png");
   koopa_sprite = loadImage("koopa_sprite.png");
   player = new Mario(900, 800);
+  
+  score = new ScoreBoard();
 
   initSound();
   if (soundOn) {
@@ -92,6 +95,7 @@ void draw() {
   for (Stage s : stage_objs) s.display();
   for (Cube c : cubes) c.display();
   for (Pipe p : pipes) p.display();
+  for (Coin c : coins) c.display();
   for (Goomba g : goombas) {
     if (player.canMove) g.movement();
     g.display_g();
