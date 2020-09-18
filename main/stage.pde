@@ -79,7 +79,7 @@ class Pipe {
   }
 
   void display() {
-    if (hasFlower) flowerScript();
+    if (hasFlower && player.canMove) flowerScript();
     image(img, x-world_x, y, unit*2, unit*3); 
   }
   

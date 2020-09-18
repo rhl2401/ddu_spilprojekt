@@ -93,12 +93,12 @@ void draw() {
   for (Cube c : cubes) c.display();
   for (Pipe p : pipes) p.display();
   for (Goomba g : goombas) {
-    g.movement();
+    if (player.canMove) g.movement();
     g.display_g();
   }
 
   for (Koopa k : koopas) {
-    k.movement();
+    if (player.canMove) k.movement();
     k.display_k();
   }
 
