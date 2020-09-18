@@ -71,7 +71,7 @@ void setup() {
   koopa_sprite = loadImage("koopa_sprite.png");
   koopa_shell_sprite = loadImage("koopa_shell_sprite.png"); 
   player = new Mario(900, 800);
-  
+
   score = new ScoreBoard();
 
   initSound();
@@ -245,6 +245,8 @@ void draw() {
       }
     } else {
       player_move_speed = 8;
+    }
+  }
 
   if (conf) {
     particle.add(new Confetti(0, 0));
@@ -261,12 +263,11 @@ void draw() {
       p.update();
       p.display();
       println(particle.size());
-
     }
   }
 
   flagpole.display();
-  
+
   //player attributes
   if (player.isAlive) {
     player.display();
