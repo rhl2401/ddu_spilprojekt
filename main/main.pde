@@ -242,6 +242,9 @@ void draw() {
       if (directionFromBoxes(player.getBox(), pi.getBox()) == "left") {
       } else if (directionFromBoxes(player.getBox(), pi.getBox()) == "right") {
       } else if (directionFromBoxes(player.getBox(), pi.getBox()) == "bottom") {
+        if (pi.can_kill) {
+          player.dies();
+        }
         player.yspeed = 0;
         can_jump = true;
       }
