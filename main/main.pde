@@ -33,6 +33,8 @@ PImage mario_sprite;
 PImage goomba_sprite;
 // Koopa image
 PImage koopa_sprite;
+// Koopa shell image
+PImage koopa_shell_sprite;
 
 // Stage objects 
 ArrayList<Stage> stage_objs = new ArrayList<Stage>();
@@ -60,6 +62,7 @@ void setup() {
   mario_sprite = loadImage("mario.png");
   goomba_sprite = loadImage("goomba.png");
   koopa_sprite = loadImage("koopa_sprite.png");
+  koopa_shell_sprite = loadImage("koopa_shell_sprite.png"); 
   player = new Mario(900, 800);
 
   initSound();
@@ -74,11 +77,11 @@ void setup() {
   goombas.add(new Goomba(1400, 850));
   koopas.add(new Koopa(1600, 850));
   koopas.add(new Koopa(1700, 850));
-
   flagpole = new Flagpole(2000);
-
   generateStage();
 }
+
+
 
 void draw() {
 
@@ -94,14 +97,21 @@ void draw() {
   for (Stage s : stage_objs) s.display();
   for (Cube c : cubes) c.display();
   for (Pipe p : pipes) p.display();
+
+  //initializing goombas
   for (Goomba g : goombas) {
     g.movement();
     g.display_g();
+    g.display_g_flat();
+    g.goomba_animation();
   }
 
+  //initializing koopas
   for (Koopa k : koopas) {
     k.movement();
     k.display_k();
+    k.display_k_flat();
+    k.koopa_animation();
   }
 
   //Checks for collision between objects mario and goomba
@@ -114,21 +124,17 @@ void draw() {
         player.dies();
       } else if ((directionFromBoxes(player.getBox(), goomm.getBox()) == "top") && goomm.e_isAlive) {
         player.dies();
-        
       } else if (directionFromBoxes(player.getBox(), goomm.getBox()) == "bottom") {
         score.addPoints(100);
         goomm.e_isAlive = false;
         println(goomm.e_isAlive);
-        goomm.goomba_animation();
         player.yspeed = -2;
-
-        if (goomm.animation_complete)
+        if (goomm.animation_complete) {
           goombas.remove(i);
+        }
       }
     }
   }
-
-
 
   //Chekcks for collision between Mario and stage
   for (Stage s : stage_objs) {   
@@ -193,11 +199,14 @@ void draw() {
         score.addPoints(100);
         player.yspeed = -2;
         koop.e_isAlive = false;
-        
+
         if (!koop.e_isAlive) {
-        koopas.remove(i);
+          koop.koopa_shell = true;
         }
-        
+
+        if (koop.animation_complete) {
+          koopas.remove(i);
+        }
       }
     }
   }
@@ -217,21 +226,14 @@ void draw() {
     }
   }
 
-
   flagpole.display();
   //player attributes
   if (player.isAlive) {
-  player.display();
-  player.update();
-  player.move();
-  
+    player.display();
+    player.update();
+    player.move();
   }
 }
-
-
-
-
-
 
 void keyPressed() 
 {

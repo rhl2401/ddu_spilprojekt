@@ -1,5 +1,4 @@
 
-
 class Enemy {
   PVector e_location = new PVector();
   PVector dir;
@@ -10,8 +9,9 @@ class Enemy {
   boolean e_left = true;
   boolean e_isAlive = true;
   boolean animation_complete = false;
-  
-  
+  boolean koopa_shell = false;
+
+
 
   Enemy (float x_in, float y_in, float w_in, float h_in) {
 
@@ -45,7 +45,7 @@ class Goomba extends Enemy {
       scale(-1, 1);
       image(goomba_sprite, 0-w, 0, w, h);
       popMatrix();
-    } else if (e_left == true) {
+    } else if (e_left == true && e_isAlive) {
       pushMatrix();
       translate(e_location.x-world_x, e_location.y);
       scale(1, 1);
@@ -61,25 +61,27 @@ class Goomba extends Enemy {
       pushMatrix();
       translate(e_location.x-world_x, e_location.y);
       scale(-1, 1);
-      image(goomba_sprite, 0-w, 0-h/2, w, h/2);
+      image(goomba_sprite, 0-w, 0+h/2, w, h/2);
       popMatrix();
     } else if (e_left == true && !e_isAlive) {
       pushMatrix();
       translate(e_location.x-world_x, e_location.y);
       scale(1, 1);
-      image(goomba_sprite, 0, 0-h/2, w, h/2);
+      image(goomba_sprite, 0, 0+h/2, w, h/2);
       popMatrix();
     }
   }
 
   void goomba_animation() {
     if (!e_isAlive) { 
-      display_g_flat();
-      if (millis() - animation_time > 2000) {
+
+      if (millis() - animation_time > 3000) {
         animation_complete = true;
       }
     }
   }
+
+
 
   Box getBox() {
     //rect(e_location.x-world_x, e_location.y, w, h);
@@ -88,6 +90,7 @@ class Goomba extends Enemy {
 }
 
 class Koopa extends Enemy {
+  int animation_time = millis();
   Koopa(float x_in, float y_in) {
     super(x_in, y_in, unit, unit);
   }
@@ -95,18 +98,35 @@ class Koopa extends Enemy {
   void display_k() {
     //image(goomba_sprite, e_location.x-world_x, e_location.y, w, h);
 
-    if (e_right == true) {
+    if (e_right == true && !koopa_shell) {
       pushMatrix();
       translate(e_location.x-world_x, e_location.y);
       scale(-1, 1);
       image(koopa_sprite, 0-w, 0, w, h);
       popMatrix();
-    } else if (e_left == true) {
+    } else if (e_left == true && !koopa_shell) {
       pushMatrix();
       translate(e_location.x-world_x, e_location.y);
       scale(1, 1);
       image(koopa_sprite, 0, 0, w, h);
       popMatrix();
+    }
+  }
+
+  void display_k_flat() {
+    if (koopa_shell) {
+      pushMatrix();
+      translate(e_location.x-world_x, e_location.y);
+      image(koopa_shell_sprite, 0, 0, w, h*2/3);
+      popMatrix();
+    }
+  }
+
+  void koopa_animation() {
+    if (!e_isAlive) { 
+      if (millis() - animation_time > 5000) {
+        animation_complete = true;
+      }
     }
   }
 
