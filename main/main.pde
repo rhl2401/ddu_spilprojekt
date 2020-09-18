@@ -80,7 +80,7 @@ void setup() {
   koopas.add(new Koopa(1600, 850));
   koopas.add(new Koopa(1700, 850));
 
-  flagpole = new Flagpole(2000);
+  flagpole = new Flagpole(5000);
 
   generateStage();
 }
