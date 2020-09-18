@@ -39,6 +39,10 @@ ArrayList<Cube> cubes = new ArrayList<Cube>();
 ArrayList<Pipe> pipes = new ArrayList<Pipe>();
 ArrayList<Coin> coins = new ArrayList<Coin>();
 
+//Confetti
+ArrayList <Confetti> confetti = new ArrayList<Confetti>();
+ArrayList <Confetti> particle;
+
 // NPCs
 ArrayList<Goomba> goombas = new ArrayList<Goomba>();
 ArrayList<Koopa> koopas = new ArrayList<Koopa>();
@@ -51,7 +55,7 @@ Flagpole flagpole;
 void setup() {
   size(1900, 1000);
   frameRate(60);
-
+  particle = new ArrayList<Confetti>();
   keys = new boolean[3];
   keys[0] = false;
   keys[1] = false;
@@ -83,6 +87,8 @@ void setup() {
 
 void draw() {
 
+
+
   clear();   
   background(48, 220, 255);
   if (started == false) {
@@ -90,6 +96,15 @@ void draw() {
   }
   // Display scoreboard 
   score.display();
+
+  //Display confetti
+  confetti.add(new Confetti(flagpole.x-100, flagpole.h-100));
+  for (int i = 0; i< confetti.size(); i++) {
+    Confetti c = confetti.get(i);
+    c.display();
+  }
+
+  println(confetti.size());
 
   // Loop through all objects in arraylists and display them
   for (Stage s : stage_objs) s.display();
@@ -164,13 +179,31 @@ void draw() {
     }
   }
 
+  if (conf) {
+    particle.add(new Confetti(0, 0));
+    for (int i = 0; i < particle.size(); i++) {
+      Confetti p = particle.get(i);
+
+      if (p.lifespan < 0) {
+        p.isAlive = false;
+      }
+      if (!p.isAlive) {
+        particle.remove(i);
+      }
+
+      p.update();
+      p.display();
+      println(particle.size());
+    }
+  }
+
   flagpole.display();
   //player attributes
   player.display();
   player.update();
   player.move();
   //println(player.location_y);
-  
+  println(conf);
 }
 
 
@@ -185,14 +218,14 @@ void keyPressed()
   {
     left = true;
     right = false;
-  
+
     keys[0] = true;
   } 
   if (key == 'D' || key == 'd') 
   {
     left = false;
     right = true;
-    
+
     keys[1] = true;
   }
 

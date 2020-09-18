@@ -151,3 +151,48 @@ void generateStage() {
   
   coins.add(new Coin(unit*16, unit*16));
 }
+
+class Confetti {
+  PVector speed = new PVector(0, 0);
+  PVector location;
+  PVector vel;
+  PVector acc; 
+  float startAngle = 0;
+  float angleVel = 0.23;
+  float x, y;
+  float aVel = 0.1; 
+  float a;
+  color col;
+  boolean isAlive = true;
+  float lifespan = 255;
+
+  Confetti(float x, float y) {
+    location = new PVector(x, y);
+    vel = new PVector(random(-2, 2), random(-1, 1));
+    acc = new PVector(0, 1);
+    col = color(random(0, 255), random(0, 255), random(0, 255));
+  }
+
+
+  void update() {
+    vel.add(acc);
+    acc.limit(3);
+    vel.limit(10);
+    location.add(vel);
+    acc.mult(0);
+    lifespan -= 2;
+    
+  }
+
+  void display() {
+    a += aVel;
+    pushMatrix();
+    rectMode(CENTER);
+    translate(location.x+flagpole.x-world_x+flagpole.w/1.3,flagpole.y+location.y);
+    rotate(a);
+    rect(0,0, 20,10);
+    fill(col);
+    stroke(0);
+    popMatrix();
+  }
+}
