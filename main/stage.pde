@@ -49,7 +49,8 @@ class Pipe {
   boolean hasFlower = false;
   float flowerShowTime = 3;
   float flowerTimer;
-  float y_coord = y;  // Used for flower
+  float y_coord = y;  //used for flower
+  boolean can_kill; //used for flower
 
   Pipe (float x_in, float y_in) {
     x = x_in; 
@@ -79,9 +80,12 @@ class Pipe {
   void flowerScript() {
     float time = millis() % ((flowerShowTime + flowerTimer) * 1000);
     if (time < 500) {
+      can_kill = true;
       y_coord = y - time/20;
     } else if (time > 2500 && time < 3000) {
       y_coord = y + (time-2000)/20;
+    } else if (time > 3000) {
+      can_kill = false;
     }
     image(flower_img, x-world_x+unit/2, y_coord-unit, unit, unit*1.5);
   }
