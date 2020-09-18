@@ -144,9 +144,11 @@ void generateCoins(float x, float y, int count) {
 
 void generateStage() {
   // Ground
+  stage_objs.add(new Stage(-2000, unit*18, 2000, 100));
   stage_objs.add(new Stage(0, unit*18, 2000, 100));
-  stage_objs.add(new Stage(1900, unit*18, 2100, 100));
-  stage_objs.add(new Stage(3900, unit*18, 2000, 100));
+  stage_objs.add(new Stage(2000, unit*18, 2000, 100));
+  stage_objs.add(new Stage(4000, unit*18, 2000, 100));
+  stage_objs.add(new Stage(6000, unit*18, 2000, 100));
 
   // Generate stage automatically
   stageGenerator(100);
