@@ -21,6 +21,10 @@ class Flagpole {
   }
   
   Box getBox() {
-    return new Box("flagpole", x-world_x+w/1.3, y, w, h);
+    return new Box("flagpole", x-world_x+w/1.3, y, 15, h);
+  }
+  
+  Box getTopBox() {
+    return new Box("flagpole", x-world_x+w/1.3, y-unit, 15, 10);
   }
 }
