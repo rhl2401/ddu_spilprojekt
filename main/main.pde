@@ -21,6 +21,8 @@ float unit = 50;
 boolean started = false;
 float stand = 0;
 
+float total_time = 100;
+
 boolean[] keys;
 
 // Score
