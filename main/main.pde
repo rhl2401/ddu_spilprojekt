@@ -105,10 +105,12 @@ void draw() {
   score.display();
 
   //Display confetti
-  confetti.add(new Confetti(flagpole.x-100, flagpole.h-100));
-  for (int i = 0; i< confetti.size(); i++) {
-    Confetti c = confetti.get(i);
-    c.display();
+  if (conf) {
+    confetti.add(new Confetti(flagpole.x-100, flagpole.h-100));
+    for (int i = 0; i< confetti.size(); i++) {
+      Confetti c = confetti.get(i);
+      c.display();
+    }
   }
 
   println(confetti.size());
